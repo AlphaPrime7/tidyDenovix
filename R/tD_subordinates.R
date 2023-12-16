@@ -27,7 +27,7 @@
 read_denovix_data = function(dfile, file_type = c('csv','excel','txt')){
 
   if(is.null(dfile)){
-    warning('Enter the string for a file or path to the Denovix-DS11 file')
+    stop('Enter the string for a file or path to the Denovix-DS11 file')
   }
 
   if('csv' %in% file_type){
@@ -77,12 +77,40 @@ extract_col_names = function(xdf){
 
 }
 
+#' Title: Extract sample names from the Denovix data frame
+#'
+#' @author Tingwei Adeck
+#'
+#' @param dfile The denovix raw file for sample name(s) extraction.
+#'
+#' @return A vector of sample names.
+#'
+#' @export
+#'
+#' @examples
+#' fpath <- system.file("extdata", "rnaspec2018.csv", package = "tidyDenovix", mustWork = TRUE)
+#' esn = extract_sample_names(fpath)
+
+extract_sample_names = function(dfile){
+
+  xdf = read_denovix_data(dfile)
+
+  xdfc = janitor::clean_names(xdf)
+  sample_names = xdfc[, c("sample_name")]
+
+  sample_names = janitor::make_clean_names(sample_names)
+
+  return(sample_names)
+
+}
+
 #' Title: Quality Control data frame
 #'
 #' @author Tingwei Adeck
 #'
 #' @import data.table
 #'
+#' @param dfile The Denovix file path.
 #' @param xdf The Denovix data frame.
 #'
 #' @return A quality control data frame.
@@ -92,12 +120,14 @@ extract_col_names = function(xdf){
 #' @examples
 #' fpath <- system.file("extdata", "rnaspec2018.csv", package = "tidyDenovix", mustWork = TRUE)
 #' rna_data = read_denovix_data(fpath, file_type = 'csv')
-#' qc_attributes = qc_attributes(rna_data)
+#' qc_attributes = qc_attributes(fpath, rna_data)
 
-qc_attributes = function(xdf){
+qc_attributes = function(dfile, xdf){
 
   xdf = xdf %>%
     janitor::clean_names()
+
+  esn = extract_sample_names(dfile)
 
   #concentration
   concentration = xdf[, c("concentration")]
@@ -133,6 +163,7 @@ qc_attributes = function(xdf){
   rownames(x260_230_alert) = "x260_230_alert"
 
   qc_df =rbind(concentration, x260_280, x260_280_alert, x260_230, x260_230_alert)
+  #colnames(qc_df) = esn
   #str(qc_df)
   return(qc_df)
 

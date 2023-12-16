@@ -6,6 +6,7 @@
 #' @param file_type The file type specification.
 #' @param sample_type The sample type specification used in quality control.
 #' @param check_level The level of quality control performed.
+#' @param qc_omit Takes 'yes' or 'no' and determines if the qc data would be provided.
 #' @param fun A parameter used for boolean expressions.
 #'
 #' @return A cleaned data frame with attribute names in some instances.
@@ -19,23 +20,25 @@
 #' fpath <- system.file("extdata", "rnaspec2018.csv", package = "tidyDenovix", mustWork = TRUE)
 #' rna_data = tidyDenovix(fpath, file_type = 'csv', sample_type = 'RNA', check_level = 'lax')
 
-tidyDenovix = function(dfile, file_type= c('csv','excel','txt'), sample_type = c('RNA','DNA'), check_level = c('strict','lax'), fun = NA){
+tidyDenovix = function(dfile, file_type= c('csv','excel','txt'), sample_type = c('RNA','DNA'), check_level = c('strict','lax'), qc_omit = NULL, fun = NA){
 
   #PRE-TRANSPOSE:workflow before transposing
 
   nofun <- is.na(fun)
 
   #import ds11 file
+  xdf_qc = read_denovix_data(dfile=dfile, file_type = file_type)
   xdf = read_denovix_data(dfile=dfile, file_type = file_type)
 
   #get the qc df
-  qc_df = qc_attributes(xdf)
+  qc_df = qc_attributes(dfile = dfile,xdf)
 
   #get the lambda df
   lambda_df = extract_wavelength(xdf)
 
   #initial col_names for qc crosscheck
   xdfc = janitor::clean_names(xdf)
+  esn = extract_sample_names(dfile=dfile)
   sample_names = xdfc[, c("sample_name")]
   sample_names_wl = append('wave_length', sample_names)
 
@@ -56,9 +59,9 @@ tidyDenovix = function(dfile, file_type= c('csv','excel','txt'), sample_type = c
   qc_colnames = as.numeric((sample_names_wl == sample_col_names))
 
   if (sum(qc_colnames) == length(sample_names_wl)){
-    col_names = sample_names_wl
+    col_names = sample_names
   } else {
-    col_names = c(1:length(sample_names_wl))
+    col_names = c(1:length(sample_names))
   }
 
   #wrangle df
@@ -66,22 +69,35 @@ tidyDenovix = function(dfile, file_type= c('csv','excel','txt'), sample_type = c
 
   #bind qc_df with wrangled df for QC
   xdf =rbind(qc_df, xdf)
-  colnames(xdf) = sample_names
+  colnames(xdf) = esn
 
   #QC now
   xdf = lambda_check(xdf,sample_type = sample_type, check_level = check_level)
+  samp_names = lambda_check_source(xdf_qc,sample_type = sample_type, check_level = check_level)
+  samp_names_wl = append('wave_length', samp_names)
 
-  #remove QC rows
-  xdf = xdf[6:nrow(xdf),]
+  if( is.null(qc_omit) || qc_omit == 'yes'){
 
-  #add the lambda attribute
-  xdf = cbind(lambda_df, xdf)
+    xdf = xdf[6:nrow(xdf),]
+    xdf = cbind(lambda_df, xdf)
+    rownames(xdf) = c(1:nrow(xdf))
+    colnames(xdf) = samp_names_wl
 
-  rownames(xdf) = c(1:nrow(xdf))
+    return(xdf)
 
-  return(xdf)
+  } else {
+
+    n <- 'qc_df'
+    assign( paste0(n, '_check'), as.data.frame(xdf), envir = parent.frame())
+    xdf = xdf[6:nrow(xdf),]
+    xdf = cbind(lambda_df, xdf)
+    rownames(xdf) = c(1:nrow(xdf))
+    colnames(xdf) = samp_names_wl
+
+    return(xdf)
+
+  }
 
 }
-
 
 

@@ -9,6 +9,7 @@ tidyDenovix(
   file_type = c("csv", "excel", "txt"),
   sample_type = c("RNA", "DNA"),
   check_level = c("strict", "lax"),
+  qc_omit = NULL,
   fun = NA
 )
 }
@@ -20,6 +21,8 @@ tidyDenovix(
 \item{sample_type}{The sample type specification used in quality control.}
 
 \item{check_level}{The level of quality control performed.}
+
+\item{qc_omit}{Takes 'yes' or 'no' and determines if the qc data would be provided.}
 
 \item{fun}{A parameter used for boolean expressions.}
 }

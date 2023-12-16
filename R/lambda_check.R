@@ -2,6 +2,73 @@
 #'
 #' @author Tingwei Adeck
 #'
+#' @importFrom dplyr filter
+#'
+#' @param odf A data frame with quality attributes.
+#' @param sample_type The type of sample under investigation.
+#' @param check_level The level of strictness based on sample type.
+#'
+#' @return A vector of sample names for the different QC criteria.
+#'
+#' @export
+#'
+#' @note Some key assumptions are made about quality for RNA or DNA.
+#' At the moment column names is the main issue found with using this approach.
+#'
+#'
+#' @examples
+#' fpath <- system.file("extdata", "rnaspec2018.csv", package = "tidyDenovix", mustWork = TRUE)
+#' rna_data = read_denovix_data(fpath, file_type = 'csv')
+#' qc_check = lambda_check_source(rna_data,sample_type='RNA',check_level='lax')
+
+lambda_check_source = function(odf, sample_type = c('RNA','DNA'), check_level = c('strict','lax')){
+
+  odf = odf %>%
+    janitor::clean_names()
+
+  if('RNA' %in% sample_type && 'lax' %in% check_level){
+    odf = odf %>% dplyr::filter(x260_280_alert == 'Met criteria')
+    sample_names = odf[, c("sample_name")]
+    sample_names = janitor::make_clean_names(sample_names)
+
+    return(sample_names)
+
+  } else if('RNA' %in% sample_type && 'strict' %in% check_level){
+    odf = odf %>% dplyr::filter(x260_230_alert == 'Met criteria')
+    sample_names = odf[, c("sample_name")]
+    sample_names = janitor::make_clean_names(sample_names)
+
+    return(sample_names)
+
+  } else if('DNA' %in% sample_type && 'lax' %in% check_level){
+    odf = odf %>% dplyr::filter(x260_230_alert == 'Met criteria')
+    sample_names = odf[, c("sample_name")]
+    sample_names = janitor::make_clean_names(sample_names)
+
+    return(sample_names)
+
+  } else if('DNA' %in% sample_type && 'strict' %in% check_level){
+    odf = odf %>% dplyr::filter(x260_280_alert == 'Met criteria')
+    sample_names = odf[, c("sample_name")]
+    sample_names = janitor::make_clean_names(sample_names)
+
+    return(sample_names)
+
+  } else {
+    odf = odf %>% dplyr::filter(x260_280_alert == 'Met criteria')
+    sample_names = odf[, c("sample_name")]
+    sample_names = janitor::make_clean_names(sample_names)
+
+    return(sample_names)
+
+  }
+
+}
+
+#' Title: Wavelength quality control
+#'
+#' @author Tingwei Adeck
+#'
 #' @param qdf A data frame with quality attributes.
 #' @param sample_type The type of sample under investigation.
 #' @param check_level The level of strictness based on sample type.
