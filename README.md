@@ -64,4 +64,34 @@ rna_data = tidyDenovix(fpath, file_type = 'csv', sample_type = 'RNA', check_leve
 
 ## References
 
-- Coming soon!!!
+(Dowle and Srinivasan 2023) (Firke 2023) (Wickham et al. 2019)
+
+<div id="refs" class="references csl-bib-body hanging-indent">
+
+<div id="ref-datatable" class="csl-entry">
+
+Dowle, Matt, and Arun Srinivasan. 2023.
+*<span class="nocase">data.table</span>: Extension of
+“<span class="nocase">data.frame</span>”*.
+<https://CRAN.R-project.org/package=data.table>.
+
+</div>
+
+<div id="ref-janitor" class="csl-entry">
+
+Firke, Sam. 2023. *<span class="nocase">janitor</span>: Simple Tools for
+Examining and Cleaning Dirty Data*.
+<https://CRAN.R-project.org/package=janitor>.
+
+</div>
+
+<div id="ref-tidyverse" class="csl-entry">
+
+Wickham, Hadley, Mara Averick, Jennifer Bryan, Winston Chang, Lucy
+D’Agostino McGowan, Romain François, Garrett Grolemund, et al. 2019.
+“Welcome to the <span class="nocase">tidyverse</span>.” *Journal of Open
+Source Software* 4 (43): 1686. <https://doi.org/10.21105/joss.01686>.
+
+</div>
+
+</div>

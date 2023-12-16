@@ -2,6 +2,7 @@
 author: Tingwei Adeck
 date: '`r format(Sys.time(), "%B %d, %Y")`'
 output: github_document
+bibliography: grateful-refs.bib
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -56,6 +57,7 @@ rna_data = tidyDenovix(fpath, file_type = 'csv', sample_type = 'RNA', check_leve
 - The 'strict' option right now does not retain sample names but that will be worked on before the initial final release. If not that will be worked on later.
 
 ## References
-
-- Coming soon!!!
+[@datatable]
+[@janitor]
+[@tidyverse]
 
