@@ -6,6 +6,8 @@
 #' A function read Denovix data files.
 #'
 #' @import readxl
+#' @importFrom utils read.csv
+#' @importFrom utils read.table
 #'
 #' @param dfile A Denovix file or path to the Denovix file.
 #' @param file_type The file type being imported.
