@@ -20,7 +20,7 @@ should use the ‘lax’ option for quality control.
 ## Installation
 
 You can install the development version of tidyDenovix from
-[GitHub](https://github.com/) with:
+[GitHub](https://github.com/AlphaPrime7/tidyDenovix) with:
 
 ``` r
 # install.packages("devtools")

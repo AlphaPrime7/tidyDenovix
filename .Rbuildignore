@@ -5,3 +5,8 @@
 ^grateful-report\.md$
 ^grateful-refs\.bib$
 ^data-import\.pdf$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
+^CODE_OF_CONDUCT\.md$
+^data-raw$

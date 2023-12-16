@@ -25,7 +25,7 @@ The goal of [`{tidyDenovix}`](https://github.com/AlphaPrime7/tidyDenovix) is to 
 
 ## Installation
 
-You can install the development version of tidyDenovix from [GitHub](https://github.com/) with:
+You can install the development version of tidyDenovix from [GitHub](https://github.com/AlphaPrime7/tidyDenovix) with:
 
 ``` r
 # install.packages("devtools")

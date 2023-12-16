@@ -1,0 +1,29 @@
+url: https://alphaprime7.github.io/tidyDenovix/
+development:
+  version_label: danger
+template:
+  bootstrap: 5
+  theme: arrow-dark
+  bslib:
+    code-bg: '#2b2b2b'
+    pkgdown-nav-height: 75px
+    bg: '#202123'
+    fg: '#B8BCC2'
+    primary: '#306cc9'
+navbar:
+  title: tidyDenovix 0.0.0.9000
+  type: inverse
+  structure:
+    right:
+    - reference
+    - NEWS
+    - github
+    - email
+    - Linkedin
+  components:
+    email:
+      icon: fa-envelope
+      href: mailto:awesome.tingwei@outlook.com
+    Linkedin:
+      icon: fa-linkedin
+      href: https://www.linkedin.com/in/tingwei-adeck-52b963164/
