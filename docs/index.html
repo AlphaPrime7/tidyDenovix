@@ -75,7 +75,7 @@
   </div>
 </nav><div class="container template-home">
 <div class="row">
-  <main id="main" class="col-md-9"><p>Tingwei Adeck December 16, 2023</p>
+  <main id="main" class="col-md-9"><p>Tingwei Adeck December 17, 2023</p>
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 <div class="section level1">
 <div class="page-header"><h1 id="tidydenovix">tidyDenovix<a class="anchor" aria-label="anchor" href="#tidydenovix"></a>
@@ -97,10 +97,18 @@
 <li>Upon using the Denovix, the user can take screenshots of the screen if they intend to present this data at a conference or seminar. However, the screenshots taken are not very professional and will likely not look good at a conference.</li>
 <li>As an undergraduate student I was faced with this issue and with poor programming skills, I had a hodgepodge of code lines that created an image but was not reproducible even by me because I had no idea what I was doing.</li>
 <li>Fast forward today and this package will accomplish cleaning this type of data making it ready for plotting and presenting to faculty and peers.</li>
+<li>Use the normalization parameter to find abnormal samples, meaning this package can be used to detect quality RNA isolates. This readme document will provide some code for plotting and enjoying visualizations while also accounting for quality of RNA isolates.</li>
 </ul>
 </div>
 <div class="section level2">
-<h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
+<h2 id="quality-control">Quality Control<a class="anchor" aria-label="anchor" href="#quality-control"></a>
+</h2>
+<ul>
+<li>As always quality is important so there are some quality parameters. Play around with the check_level parameter as ‘lax’ vs ‘strict’ to determine the level of quality needed for the final output.</li>
+</ul>
+</div>
+<div class="section level2">
+<h2 id="example-base">Example-Base<a class="anchor" aria-label="anchor" href="#example-base"></a>
 </h2>
 <p>This is a basic example which shows you how to solve a common problem:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
@@ -110,11 +118,89 @@
 <span><span class="va">rna_data</span> <span class="op">=</span> <span class="fu"><a href="reference/tidyDenovix.html">tidyDenovix</a></span><span class="op">(</span><span class="va">fpath</span>, file_type <span class="op">=</span> <span class="st">'csv'</span>, sample_type <span class="op">=</span> <span class="st">'RNA'</span>, check_level <span class="op">=</span> <span class="st">'lax'</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="quality-control">Quality Control<a class="anchor" aria-label="anchor" href="#quality-control"></a>
+<h2 id="example-normalized">Example-Normalized<a class="anchor" aria-label="anchor" href="#example-normalized"></a>
+</h2>
+<p>This examples implements normalization for Quality Control of RNA isolates:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/AlphaPrime7/tidyDenovix" class="external-link">tidyDenovix</a></span><span class="op">)</span></span>
+<span><span class="co">## basic example code</span></span>
+<span><span class="va">fpath</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"rnaspec2018.csv"</span>, package <span class="op">=</span> <span class="st">"tidyDenovix"</span>, mustWork <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">rna_data</span> <span class="op">=</span> <span class="fu"><a href="reference/tidyDenovix.html">tidyDenovix</a></span><span class="op">(</span><span class="va">fpath</span>, sample_type <span class="op">=</span> <span class="st">'RNA'</span>,check_level <span class="op">=</span> <span class="st">'strict'</span>, qc_omit <span class="op">=</span> <span class="st">'no'</span>, normalized <span class="op">=</span> <span class="st">'yes'</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="example-plotting-data-for-qc-visualization">Example-Plotting Data for QC visualization<a class="anchor" aria-label="anchor" href="#example-plotting-data-for-qc-visualization"></a>
 </h2>
 <ul>
-<li><p>As always quality is important so there are some quality parameters. Play around with the check_level parameter as ‘lax’ vs ‘strict’ to determine the level of quality needed for the final output.</p></li>
-<li><p>The ‘strict’ option right now does not retain sample names but that will be worked on before the initial final release. If not that will be worked on later.</p></li>
+<li><p>Visualization of normalized data for QC. Spectrophotometry can help in knowing if the sample in hand is RNA vs DNA but that is not the most sound approach. More will be discussed below on this.</p></li>
+<li><p>Simply look for samples that look different and “viola” those are your problems. These samples will not be primed candidates for cDNA synthesis and most likely not useful for qPCR.</p></li>
+<li><p>The other aspect of QC will be ensuring that the kit used in RNA isolation is the right kit and actually yields RNA. This can only be done using gel electrophoresis and this is NOT the scope of this package OR is it even possible using this package. The user will need to physically run gels and confirm the presence of rRNA bands. In fact, it is resource smart to run gels first to confirm you have the right type of sample before determining if the samples meet the right quality needed for further probing.</p></li>
+</ul>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/AlphaPrime7/tidyDenovix" class="external-link">tidyDenovix</a></span><span class="op">)</span></span>
+<span><span class="co">## basic example code</span></span>
+<span><span class="va">fpath</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"rnaspec2018.csv"</span>, package <span class="op">=</span> <span class="st">"tidyDenovix"</span>, mustWork <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">rna_data</span> <span class="op">=</span> <span class="fu"><a href="reference/tidyDenovix.html">tidyDenovix</a></span><span class="op">(</span><span class="va">fpath</span>, sample_type <span class="op">=</span> <span class="st">'RNA'</span>,check_level <span class="op">=</span> <span class="st">'strict'</span>, qc_omit <span class="op">=</span> <span class="st">'no'</span>, normalized <span class="op">=</span> <span class="st">'yes'</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#PLOT-rnaspec2018.csv 'strict'</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://plotly-r.com" class="external-link">plotly</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Attaching package: 'plotly'</span></span>
+<span><span class="co">#&gt; The following object is masked from 'package:ggplot2':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     last_plot</span></span>
+<span><span class="co">#&gt; The following object is masked from 'package:stats':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     filter</span></span>
+<span><span class="co">#&gt; The following object is masked from 'package:graphics':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     layout</span></span>
+<span><span class="va">rnaqcplot</span> <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">rna_data</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">wave_length</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>y<span class="op">=</span><span class="va">zt2_3</span>, color<span class="op">=</span><span class="st">'zt2_3'</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>y<span class="op">=</span><span class="va">zt14_2</span>, color<span class="op">=</span><span class="st">'zt14_2'</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>y<span class="op">=</span><span class="va">zt14_2_2</span>, color<span class="op">=</span><span class="st">'zt14_2_2'</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>y<span class="op">=</span><span class="va">cal_rna_12ul</span>, color<span class="op">=</span><span class="st">'cal_rna_12ul'</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>y<span class="op">=</span><span class="va">zt6_3</span>, color<span class="op">=</span><span class="st">'zt6_3'</span><span class="op">)</span><span class="op">)</span>  <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>y<span class="op">=</span><span class="va">zt6_3_2</span>, color<span class="op">=</span><span class="st">'zt6_3_2'</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>y<span class="op">=</span><span class="va">zt10_3</span>, color<span class="op">=</span><span class="st">'zt10_3'</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>y<span class="op">=</span><span class="va">zt10_3_2</span>, color<span class="op">=</span><span class="st">'zt10_3_2'</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">'Absorbance vs Wavelength'</span>, x <span class="op">=</span> <span class="st">'Wavelength'</span>, y<span class="op">=</span><span class="st">'10 mm Absorbance'</span>, color<span class="op">=</span><span class="st">'Circadian Times'</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/plotly/man/ggplotly.html" class="external-link">ggplotly</a></span><span class="op">(</span><span class="va">rnaqcplot</span><span class="op">)</span></span></code></pre></div>
+<p><img src="reference/figures/README-example3-1.png" width="100%"></p>
+<ul>
+<li>The image above clearly shows that no samples were trying to be mavericks and all the samples behave similarly. All the samples above are quality samples at least based on spectrophotometry and ONLY gel electrophoresis rRNA band intensity can tell more about sample quality.</li>
+</ul>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#PLOT dark mode-rnaspec2018.csv 'strict'</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://plotly-r.com" class="external-link">plotly</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">ggdark</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jrnold/ggthemes" class="external-link">ggthemes</a></span><span class="op">)</span></span>
+<span><span class="co">#library(hrbrthemes)</span></span>
+<span><span class="co">#old &lt;- theme_set(theme_dark())</span></span>
+<span><span class="va">rnaqcplot</span> <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">rna_data</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">wave_length</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>y<span class="op">=</span><span class="va">zt2_3</span>, color<span class="op">=</span><span class="st">'zt2_3'</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>y<span class="op">=</span><span class="va">zt14_2</span>, color<span class="op">=</span><span class="st">'zt14_2'</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>y<span class="op">=</span><span class="va">zt14_2_2</span>, color<span class="op">=</span><span class="st">'zt14_2_2'</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>y<span class="op">=</span><span class="va">cal_rna_12ul</span>, color<span class="op">=</span><span class="st">'cal_rna_12ul'</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>y<span class="op">=</span><span class="va">zt6_3</span>, color<span class="op">=</span><span class="st">'zt6_3'</span><span class="op">)</span><span class="op">)</span>  <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>y<span class="op">=</span><span class="va">zt6_3_2</span>, color<span class="op">=</span><span class="st">'zt6_3_2'</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>y<span class="op">=</span><span class="va">zt10_3</span>, color<span class="op">=</span><span class="st">'zt10_3'</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>y<span class="op">=</span><span class="va">zt10_3_2</span>, color<span class="op">=</span><span class="st">'zt10_3_2'</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/ggdark/man/dark_mode.html" class="external-link">dark_mode</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">'Absorbance vs Wavelength'</span>, x <span class="op">=</span> <span class="st">'Wavelength'</span>, y<span class="op">=</span><span class="st">'10 mm Absorbance'</span>, color<span class="op">=</span><span class="st">'Circadian Times'</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Inverted geom defaults of fill and color/colour.</span></span>
+<span><span class="co">#&gt; To change them back, use invert_geom_defaults().</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/plotly/man/ggplotly.html" class="external-link">ggplotly</a></span><span class="op">(</span><span class="va">rnaqcplot</span><span class="op">)</span></span></code></pre></div>
+<p><img src="reference/figures/README-example4-1.png" width="100%"></p>
+</div>
+<div class="section level2">
+<h2 id="conclusion">Conclusion<a class="anchor" aria-label="anchor" href="#conclusion"></a>
+</h2>
+<ul>
+<li>Finally, a programmatic solution to the problem of RNA quality checking.</li>
+<li>As always, credit to the Denovix team for making a machine that performs RNA QC checking. As always, these products come within their scope and programmers like me have to push this envelope in order to gain insight on these experiments hence tidyDenovix.</li>
+<li>Thanks for the support in advance, on to the next one.</li>
 </ul>
 </div>
 <div class="section level2">

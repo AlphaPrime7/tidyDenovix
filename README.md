@@ -1,5 +1,5 @@
 Tingwei Adeck
-December 16, 2023
+December 17, 2023
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
@@ -40,8 +40,18 @@ devtools::install_github("AlphaPrime7/tidyDenovix")
 - Fast forward today and this package will accomplish cleaning this type
   of data making it ready for plotting and presenting to faculty and
   peers.
+- Use the normalization parameter to find abnormal samples, meaning this
+  package can be used to detect quality RNA isolates. This readme
+  document will provide some code for plotting and enjoying
+  visualizations while also accounting for quality of RNA isolates.
 
-## Example
+## Quality Control
+
+- As always quality is important so there are some quality parameters.
+  Play around with the check_level parameter as ‘lax’ vs ‘strict’ to
+  determine the level of quality needed for the final output.
+
+## Example-Base
 
 This is a basic example which shows you how to solve a common problem:
 
@@ -52,15 +62,113 @@ fpath <- system.file("extdata", "rnaspec2018.csv", package = "tidyDenovix", must
 rna_data = tidyDenovix(fpath, file_type = 'csv', sample_type = 'RNA', check_level = 'lax')
 ```
 
-## Quality Control
+## Example-Normalized
 
-- As always quality is important so there are some quality parameters.
-  Play around with the check_level parameter as ‘lax’ vs ‘strict’ to
-  determine the level of quality needed for the final output.
+This examples implements normalization for Quality Control of RNA
+isolates:
 
-- The ‘strict’ option right now does not retain sample names but that
-  will be worked on before the initial final release. If not that will
-  be worked on later.
+``` r
+library(tidyDenovix)
+## basic example code
+fpath <- system.file("extdata", "rnaspec2018.csv", package = "tidyDenovix", mustWork = TRUE)
+rna_data = tidyDenovix(fpath, sample_type = 'RNA',check_level = 'strict', qc_omit = 'no', normalized = 'yes')
+```
+
+## Example-Plotting Data for QC visualization
+
+- Visualization of normalized data for QC. Spectrophotometry can help in
+  knowing if the sample in hand is RNA vs DNA but that is not the most
+  sound approach. More will be discussed below on this.
+
+- Simply look for samples that look different and “viola” those are your
+  problems. These samples will not be primed candidates for cDNA
+  synthesis and most likely not useful for qPCR.
+
+- The other aspect of QC will be ensuring that the kit used in RNA
+  isolation is the right kit and actually yields RNA. This can only be
+  done using gel electrophoresis and this is NOT the scope of this
+  package OR is it even possible using this package. The user will need
+  to physically run gels and confirm the presence of rRNA bands. In
+  fact, it is resource smart to run gels first to confirm you have the
+  right type of sample before determining if the samples meet the right
+  quality needed for further probing.
+
+``` r
+library(tidyDenovix)
+## basic example code
+fpath <- system.file("extdata", "rnaspec2018.csv", package = "tidyDenovix", mustWork = TRUE)
+rna_data = tidyDenovix(fpath, sample_type = 'RNA',check_level = 'strict', qc_omit = 'no', normalized = 'yes')
+
+#PLOT-rnaspec2018.csv 'strict'
+library(ggplot2)
+library(plotly)
+#> 
+#> Attaching package: 'plotly'
+#> The following object is masked from 'package:ggplot2':
+#> 
+#>     last_plot
+#> The following object is masked from 'package:stats':
+#> 
+#>     filter
+#> The following object is masked from 'package:graphics':
+#> 
+#>     layout
+rnaqcplot = ggplot(rna_data, aes(x=wave_length)) + 
+  geom_line(aes(y=zt2_3, color='zt2_3')) + 
+  geom_line(aes(y=zt14_2, color='zt14_2')) + 
+  geom_line(aes(y=zt14_2_2, color='zt14_2_2')) +
+  geom_line(aes(y=cal_rna_12ul, color='cal_rna_12ul')) +
+  geom_line(aes(y=zt6_3, color='zt6_3'))  + 
+  geom_line(aes(y=zt6_3_2, color='zt6_3_2')) + 
+  geom_line(aes(y=zt10_3, color='zt10_3')) + 
+  geom_line(aes(y=zt10_3_2, color='zt10_3_2')) +
+  labs(title = 'Absorbance vs Wavelength', x = 'Wavelength', y='10 mm Absorbance', color='Circadian Times')
+ggplotly(rnaqcplot)
+```
+
+<img src="man/figures/README-example3-1.png" width="100%" />
+
+- The image above clearly shows that no samples were trying to be
+  mavericks and all the samples behave similarly. All the samples above
+  are quality samples at least based on spectrophotometry and ONLY gel
+  electrophoresis rRNA band intensity can tell more about sample
+  quality.
+
+``` r
+#PLOT dark mode-rnaspec2018.csv 'strict'
+library(ggplot2)
+library(plotly)
+library(ggdark)
+library(ggthemes)
+#library(hrbrthemes)
+#old <- theme_set(theme_dark())
+rnaqcplot = ggplot(rna_data, aes(x=wave_length)) + 
+  geom_line(aes(y=zt2_3, color='zt2_3')) + 
+  geom_line(aes(y=zt14_2, color='zt14_2')) + 
+  geom_line(aes(y=zt14_2_2, color='zt14_2_2')) +
+  geom_line(aes(y=cal_rna_12ul, color='cal_rna_12ul')) +
+  geom_line(aes(y=zt6_3, color='zt6_3'))  + 
+  geom_line(aes(y=zt6_3_2, color='zt6_3_2')) + 
+  geom_line(aes(y=zt10_3, color='zt10_3')) + 
+  geom_line(aes(y=zt10_3_2, color='zt10_3_2')) +
+  dark_mode() +
+  labs(title = 'Absorbance vs Wavelength', x = 'Wavelength', y='10 mm Absorbance', color='Circadian Times')
+#> Inverted geom defaults of fill and color/colour.
+#> To change them back, use invert_geom_defaults().
+ggplotly(rnaqcplot)
+```
+
+<img src="man/figures/README-example4-1.png" width="100%" />
+
+## Conclusion
+
+- Finally, a programmatic solution to the problem of RNA quality
+  checking.
+- As always, credit to the Denovix team for making a machine that
+  performs RNA QC checking. As always, these products come within their
+  scope and programmers like me have to push this envelope in order to
+  gain insight on these experiments hence tidyDenovix.
+- Thanks for the support in advance, on to the next one.
 
 ## References
 

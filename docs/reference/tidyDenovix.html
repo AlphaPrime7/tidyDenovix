@@ -71,6 +71,8 @@
 <span>  file_type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"csv"</span>, <span class="st">"excel"</span>, <span class="st">"txt"</span><span class="op">)</span>,</span>
 <span>  sample_type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"RNA"</span>, <span class="st">"DNA"</span><span class="op">)</span>,</span>
 <span>  check_level <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"strict"</span>, <span class="st">"lax"</span><span class="op">)</span>,</span>
+<span>  qc_omit <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  normalized <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"yes"</span>, <span class="st">"no"</span><span class="op">)</span>,</span>
 <span>  fun <span class="op">=</span> <span class="cn">NA</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -91,6 +93,14 @@
 
 <dt>check_level</dt>
 <dd><p>The level of quality control performed.</p></dd>
+
+
+<dt>qc_omit</dt>
+<dd><p>Takes 'yes' or 'no' and determines if the qc data would be provided.</p></dd>
+
+
+<dt>normalized</dt>
+<dd><p>Takes 'yes' or 'no'.</p></dd>
 
 
 <dt>fun</dt>
