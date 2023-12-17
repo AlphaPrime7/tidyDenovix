@@ -10,6 +10,7 @@ tidyDenovix(
   sample_type = c("RNA", "DNA"),
   check_level = c("strict", "lax"),
   qc_omit = NULL,
+  normalized = c("yes", "no"),
   fun = NA
 )
 }
@@ -23,6 +24,8 @@ tidyDenovix(
 \item{check_level}{The level of quality control performed.}
 
 \item{qc_omit}{Takes 'yes' or 'no' and determines if the qc data would be provided.}
+
+\item{normalized}{Takes 'yes' or 'no'.}
 
 \item{fun}{A parameter used for boolean expressions.}
 }

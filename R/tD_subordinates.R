@@ -203,3 +203,23 @@ extract_wavelength = function(xdf){
   return(wave_lengths)
 
 }
+
+#' Title: Min-Max normalization of attributes that require normalization
+#'
+#' @author Tingwei Adeck (Adapted from Statology)
+#' @param x A single value from an attribute passed in the function for normalization.
+#'
+#' @return A normalized value (value between 1 and 0)
+#' @export
+#' @note lapply is needed to apply the function across several columns in a data set.
+#'
+#'
+#' @examples test_df <- as.data.frame(c(seq(40)))
+#' colnames(test_df) <- "test"
+#' test_df_norm <- lapply(test_df[1:ncol(test_df)], min_max_norm)
+#'
+#' @references https://www.statology.org/how-to-normalize-data-in-r/
+
+min_max_norm <- function(x){
+  (x - min(x)) / (max(x) - min(x))
+}
