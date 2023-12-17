@@ -105,6 +105,7 @@ library(plotly)
 library(ggdark)
 library(ggthemes)
 library(htmlwidgets)
+library(widgetframe)
 #library(hrbrthemes)
 #old <- theme_set(theme_dark())
 rnaqcplot = ggplot(rna_data, aes(x=wave_length)) + 
@@ -119,7 +120,8 @@ rnaqcplot = ggplot(rna_data, aes(x=wave_length)) +
   dark_mode() +
   labs(title = 'Absorbance vs Wavelength', x = 'Wavelength', y='10 mm Absorbance', color='Circadian Times')
 saveWidget(ggplotly(rnaqcplot), file = "rnaplot.html", selfcontained = F, libdir = "lib")
-ggplotly(rnaqcplot)
+#ggplotly(rnaqcplot)
+frameWidget(ggplotly(rnaqcplot))
 ```
 
 ```{r}
@@ -132,7 +134,7 @@ library(htmlwidgets)
 #library(hrbrthemes)
 #old <- theme_set(theme_dark())
 plotly.nofun = function(){
-  naqcplot = ggplot(rna_data, aes(x=wave_length)) + 
+  rnaqcplot = ggplot(rna_data, aes(x=wave_length)) + 
   geom_line(aes(y=zt2_3, color='zt2_3')) + 
   geom_line(aes(y=zt14_2, color='zt14_2')) + 
   geom_line(aes(y=zt14_2_2, color='zt14_2_2')) +

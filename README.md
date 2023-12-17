@@ -143,6 +143,7 @@ library(plotly)
 library(ggdark)
 library(ggthemes)
 library(htmlwidgets)
+library(widgetframe)
 #library(hrbrthemes)
 #old <- theme_set(theme_dark())
 rnaqcplot = ggplot(rna_data, aes(x=wave_length)) + 
@@ -159,7 +160,8 @@ rnaqcplot = ggplot(rna_data, aes(x=wave_length)) +
 #> Inverted geom defaults of fill and color/colour.
 #> To change them back, use invert_geom_defaults().
 saveWidget(ggplotly(rnaqcplot), file = "rnaplot.html", selfcontained = F, libdir = "lib")
-ggplotly(rnaqcplot)
+#ggplotly(rnaqcplot)
+frameWidget(ggplotly(rnaqcplot))
 ```
 
 <img src="man/figures/README-example4-1.png" width="100%" />
@@ -174,7 +176,7 @@ library(htmlwidgets)
 #library(hrbrthemes)
 #old <- theme_set(theme_dark())
 plotly.nofun = function(){
-  naqcplot = ggplot(rna_data, aes(x=wave_length)) + 
+  rnaqcplot = ggplot(rna_data, aes(x=wave_length)) + 
   geom_line(aes(y=zt2_3, color='zt2_3')) + 
   geom_line(aes(y=zt14_2, color='zt14_2')) + 
   geom_line(aes(y=zt14_2_2, color='zt14_2_2')) +
