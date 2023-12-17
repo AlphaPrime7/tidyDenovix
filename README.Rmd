@@ -120,34 +120,15 @@ rnaqcplot = ggplot(rna_data, aes(x=wave_length)) +
   dark_mode() +
   labs(title = 'Absorbance vs Wavelength', x = 'Wavelength', y='10 mm Absorbance', color='Circadian Times')
 saveWidget(ggplotly(rnaqcplot), file = "rnaplot.html", selfcontained = F, libdir = "lib")
-#ggplotly(rnaqcplot)
-frameWidget(ggplotly(rnaqcplot))
+ggplotly(rnaqcplot)
+#frameWidget(ggplotly(rnaqcplot))
 ```
 
-```{r}
-#PLOT dark mode-rnaspec2018.csv 'strict'
-library(ggplot2)
-library(plotly)
-library(ggdark)
-library(ggthemes)
-library(htmlwidgets)
-#library(hrbrthemes)
-#old <- theme_set(theme_dark())
-plotly.nofun = function(){
-  rnaqcplot = ggplot(rna_data, aes(x=wave_length)) + 
-  geom_line(aes(y=zt2_3, color='zt2_3')) + 
-  geom_line(aes(y=zt14_2, color='zt14_2')) + 
-  geom_line(aes(y=zt14_2_2, color='zt14_2_2')) +
-  geom_line(aes(y=cal_rna_12ul, color='cal_rna_12ul')) +
-  geom_line(aes(y=zt6_3, color='zt6_3'))  + 
-  geom_line(aes(y=zt6_3_2, color='zt6_3_2')) + 
-  geom_line(aes(y=zt10_3, color='zt10_3')) + 
-  geom_line(aes(y=zt10_3_2, color='zt10_3_2')) +
-  dark_mode() +
-  labs(title = 'Absorbance vs Wavelength', x = 'Wavelength', y='10 mm Absorbance', color='Circadian Times')
-return(ggplotly(rnaqcplot))
-}
-plotly.nofun()
+- Link to interactive graph:x   
+[Ggplotly](/docs/rnaplot.html)
+
+```{r showggplotly}
+htmltools::includeHTML('docs/rnaplot.html')
 ```
 
 ## Conclusion
