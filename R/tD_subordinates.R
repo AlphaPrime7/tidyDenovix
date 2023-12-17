@@ -31,11 +31,11 @@ read_denovix_data = function(dfile, file_type = c('csv','excel','txt')){
   }
 
   if('csv' %in% file_type){
-    csvfile = read.csv(file = dfile)
+    csvfile = read.csv(file = dfile, header = TRUE)
     return(csvfile)
 
   } else if('excel' %in% file_type){
-    xlfile = read_excel(dfile)
+    xlfile = read_excel(dfile, col_names = TRUE)
     return(xlfile)
 
   } else if('txt' %in% file_type){
