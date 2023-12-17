@@ -124,13 +124,6 @@ ggplotly(rnaqcplot)
 #frameWidget(ggplotly(rnaqcplot))
 ```
 
-- Link to interactive graph:x   
-[Ggplotly](/docs/rnaplot.html)
-
-```{r showggplotly}
-htmltools::includeHTML('docs/rnaplot.html')
-```
-
 ## Conclusion
 
 -   Finally, a programmatic solution to the problem of RNA quality checking.
