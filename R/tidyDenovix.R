@@ -80,6 +80,7 @@ tidyDenovix = function(dfile, file_type= c('csv','excel','txt'), sample_type = c
 
     xdf = xdf[6:nrow(xdf),]
     xdf = cbind(lambda_df, xdf)
+    xdf = na.omit(xdf)
     rownames(xdf) = c(1:nrow(xdf))
     colnames(xdf) = samp_names_wl
 
@@ -91,6 +92,7 @@ tidyDenovix = function(dfile, file_type= c('csv','excel','txt'), sample_type = c
     assign( paste0(n, '_check'), as.data.frame(xdf), envir = parent.frame())
     xdf = xdf[6:nrow(xdf),]
     xdf = cbind(lambda_df, xdf)
+    xdf = na.omit(xdf)
     rownames(xdf) = c(1:nrow(xdf))
     colnames(xdf) = samp_names_wl
 
