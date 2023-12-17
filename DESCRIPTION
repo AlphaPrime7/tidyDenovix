@@ -21,6 +21,7 @@ Imports:
     readxl,
     tibble,
     dplyr,
+    tidyr,
     utils
 Depends: 
     R (>= 2.10)

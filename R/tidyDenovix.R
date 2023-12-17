@@ -2,6 +2,8 @@
 #'
 #' @author Tingwei Adeck
 #'
+#' @import tidyr
+#'
 #' @param dfile The raw file obtained from the machine.
 #' @param file_type The file type specification.
 #' @param sample_type The sample type specification used in quality control.
@@ -82,7 +84,7 @@ suppressWarnings({
 
     xdf = xdf[6:nrow(xdf),]
     xdf = cbind(lambda_df, xdf)
-    xdf = xdf[tidyr::complete.cases(xdf), ]
+    xdf = xdf[complete.cases(xdf), ]
     #xdf = xdf %>% drop_na()
     #xdf = na.omit(xdf)
     rownames(xdf) = c(1:nrow(xdf))
@@ -96,7 +98,7 @@ suppressWarnings({
     assign( paste0(n, '_check'), as.data.frame(xdf), envir = parent.frame())
     xdf = xdf[6:nrow(xdf),]
     xdf = cbind(lambda_df, xdf)
-    xdf = xdf[tidyr::complete.cases(xdf), ]
+    xdf = xdf[complete.cases(xdf), ]
     #xdf = xdf %>% drop_na()
     #xdf = na.omit(xdf)
     rownames(xdf) = c(1:nrow(xdf))
