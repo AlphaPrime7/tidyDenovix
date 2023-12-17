@@ -113,6 +113,7 @@ library(plotly)
 #> The following object is masked from 'package:graphics':
 #> 
 #>     layout
+library(htmlwidgets)
 rnaqcplot = ggplot(rna_data, aes(x=wave_length)) + 
   geom_line(aes(y=zt2_3, color='zt2_3')) + 
   geom_line(aes(y=zt14_2, color='zt14_2')) + 
@@ -123,6 +124,7 @@ rnaqcplot = ggplot(rna_data, aes(x=wave_length)) +
   geom_line(aes(y=zt10_3, color='zt10_3')) + 
   geom_line(aes(y=zt10_3_2, color='zt10_3_2')) +
   labs(title = 'Absorbance vs Wavelength', x = 'Wavelength', y='10 mm Absorbance', color='Circadian Times')
+saveWidget(ggplotly(rnaqcplot), file = "rnaplot.html", selfcontained = F, libdir = "lib")
 ggplotly(rnaqcplot)
 ```
 
@@ -140,6 +142,7 @@ library(ggplot2)
 library(plotly)
 library(ggdark)
 library(ggthemes)
+library(htmlwidgets)
 #library(hrbrthemes)
 #old <- theme_set(theme_dark())
 rnaqcplot = ggplot(rna_data, aes(x=wave_length)) + 
@@ -155,10 +158,39 @@ rnaqcplot = ggplot(rna_data, aes(x=wave_length)) +
   labs(title = 'Absorbance vs Wavelength', x = 'Wavelength', y='10 mm Absorbance', color='Circadian Times')
 #> Inverted geom defaults of fill and color/colour.
 #> To change them back, use invert_geom_defaults().
+saveWidget(ggplotly(rnaqcplot), file = "rnaplot.html", selfcontained = F, libdir = "lib")
 ggplotly(rnaqcplot)
 ```
 
 <img src="man/figures/README-example4-1.png" width="100%" />
+
+``` r
+#PLOT dark mode-rnaspec2018.csv 'strict'
+library(ggplot2)
+library(plotly)
+library(ggdark)
+library(ggthemes)
+library(htmlwidgets)
+#library(hrbrthemes)
+#old <- theme_set(theme_dark())
+plotly.nofun = function(){
+  naqcplot = ggplot(rna_data, aes(x=wave_length)) + 
+  geom_line(aes(y=zt2_3, color='zt2_3')) + 
+  geom_line(aes(y=zt14_2, color='zt14_2')) + 
+  geom_line(aes(y=zt14_2_2, color='zt14_2_2')) +
+  geom_line(aes(y=cal_rna_12ul, color='cal_rna_12ul')) +
+  geom_line(aes(y=zt6_3, color='zt6_3'))  + 
+  geom_line(aes(y=zt6_3_2, color='zt6_3_2')) + 
+  geom_line(aes(y=zt10_3, color='zt10_3')) + 
+  geom_line(aes(y=zt10_3_2, color='zt10_3_2')) +
+  dark_mode() +
+  labs(title = 'Absorbance vs Wavelength', x = 'Wavelength', y='10 mm Absorbance', color='Circadian Times')
+return(ggplotly(rnaqcplot))
+}
+plotly.nofun()
+```
+
+<img src="man/figures/README-unnamed-chunk-2-1.png" width="100%" />
 
 ## Conclusion
 

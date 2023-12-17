@@ -18,8 +18,7 @@ knitr::opts_chunk$set(
 
 # tidyDenovix
 
-[![Project status](https://www.repostatus.org/badges/latest/concept.svg)](https://github.com/AlphaPrime7/tidyDenovix/graphs/commit-activity) [![Project Status](https://www.repostatus.org/badges/latest/wip.svg)](https://github.com/AlphaPrime7/tidyDenovix/graphs/commit-activity)
-[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/AlphaPrime7/tidyDenovix/graphs/commit-activity)
+[![Project status](https://www.repostatus.org/badges/latest/concept.svg)](https://github.com/AlphaPrime7/tidyDenovix/graphs/commit-activity) [![Project Status](https://www.repostatus.org/badges/latest/wip.svg)](https://github.com/AlphaPrime7/tidyDenovix/graphs/commit-activity) [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/AlphaPrime7/tidyDenovix/graphs/commit-activity)
 
 The goal of [`{tidyDenovix}`](https://github.com/AlphaPrime7/tidyDenovix) is to clean data obtained from the Denovix spectrophotometry instrument. This package should clean data for RNA or DNA samples. At the moment users should use the 'lax' option for quality control.
 
@@ -34,14 +33,14 @@ devtools::install_github("AlphaPrime7/tidyDenovix")
 
 ## Raison-Etre
 
-- Upon using the Denovix, the user can take screenshots of the screen if they intend to present this data at a conference or seminar. However, the screenshots taken are not very professional and will likely not look good at a conference.
-- As an undergraduate student I was faced with this issue and with poor programming skills, I had a hodgepodge of code lines that created an image but was not reproducible even by me because I had no idea what I was doing.
-- Fast forward today and this package will accomplish cleaning this type of data making it ready for plotting and presenting to faculty and peers.
-- Use the normalization parameter to find abnormal samples, meaning this package can be used to detect quality RNA isolates. This readme document will provide some code for plotting and enjoying visualizations while also accounting for quality of RNA isolates.
+-   Upon using the Denovix, the user can take screenshots of the screen if they intend to present this data at a conference or seminar. However, the screenshots taken are not very professional and will likely not look good at a conference.
+-   As an undergraduate student I was faced with this issue and with poor programming skills, I had a hodgepodge of code lines that created an image but was not reproducible even by me because I had no idea what I was doing.
+-   Fast forward today and this package will accomplish cleaning this type of data making it ready for plotting and presenting to faculty and peers.
+-   Use the normalization parameter to find abnormal samples, meaning this package can be used to detect quality RNA isolates. This readme document will provide some code for plotting and enjoying visualizations while also accounting for quality of RNA isolates.
 
 ## Quality Control
 
-- As always quality is important so there are some quality parameters. Play around with the check_level parameter as 'lax' vs 'strict' to determine the level of quality needed for the final output.
+-   As always quality is important so there are some quality parameters. Play around with the check_level parameter as 'lax' vs 'strict' to determine the level of quality needed for the final output.
 
 ## Example-Base
 
@@ -65,14 +64,13 @@ fpath <- system.file("extdata", "rnaspec2018.csv", package = "tidyDenovix", must
 rna_data = tidyDenovix(fpath, sample_type = 'RNA',check_level = 'strict', qc_omit = 'no', normalized = 'yes')
 ```
 
-
 ## Example-Plotting Data for QC visualization
 
-- Visualization of normalized data for QC. Spectrophotometry can help in knowing if the sample in hand is RNA vs DNA but that is not the most sound approach. More will be discussed below on this.
+-   Visualization of normalized data for QC. Spectrophotometry can help in knowing if the sample in hand is RNA vs DNA but that is not the most sound approach. More will be discussed below on this.
 
-- Simply look for samples that look different and "viola" those are your problems. These samples will not be primed candidates for cDNA synthesis and most likely not useful for qPCR.
+-   Simply look for samples that look different and "viola" those are your problems. These samples will not be primed candidates for cDNA synthesis and most likely not useful for qPCR.
 
-- The other aspect of QC will be ensuring that the kit used in RNA isolation is the right kit and actually yields RNA. This can only be done using gel electrophoresis and this is NOT the scope of this package OR is it even possible using this package. The user will need to physically run gels and confirm the presence of rRNA bands. In fact, it is resource smart to run gels first to confirm you have the right type of sample before determining if the samples meet the right quality needed for further probing. 
+-   The other aspect of QC will be ensuring that the kit used in RNA isolation is the right kit and actually yields RNA. This can only be done using gel electrophoresis and this is NOT the scope of this package OR is it even possible using this package. The user will need to physically run gels and confirm the presence of rRNA bands. In fact, it is resource smart to run gels first to confirm you have the right type of sample before determining if the samples meet the right quality needed for further probing.
 
 ```{r example3}
 library(tidyDenovix)
@@ -83,6 +81,7 @@ rna_data = tidyDenovix(fpath, sample_type = 'RNA',check_level = 'strict', qc_omi
 #PLOT-rnaspec2018.csv 'strict'
 library(ggplot2)
 library(plotly)
+library(htmlwidgets)
 rnaqcplot = ggplot(rna_data, aes(x=wave_length)) + 
   geom_line(aes(y=zt2_3, color='zt2_3')) + 
   geom_line(aes(y=zt14_2, color='zt14_2')) + 
@@ -93,10 +92,11 @@ rnaqcplot = ggplot(rna_data, aes(x=wave_length)) +
   geom_line(aes(y=zt10_3, color='zt10_3')) + 
   geom_line(aes(y=zt10_3_2, color='zt10_3_2')) +
   labs(title = 'Absorbance vs Wavelength', x = 'Wavelength', y='10 mm Absorbance', color='Circadian Times')
+saveWidget(ggplotly(rnaqcplot), file = "rnaplot.html", selfcontained = F, libdir = "lib")
 ggplotly(rnaqcplot)
 ```
 
-- The image above clearly shows that no samples were trying to be mavericks and all the samples behave similarly. All the samples above are quality samples at least based on spectrophotometry and ONLY gel electrophoresis rRNA band intensity can tell more about sample quality.
+-   The image above clearly shows that no samples were trying to be mavericks and all the samples behave similarly. All the samples above are quality samples at least based on spectrophotometry and ONLY gel electrophoresis rRNA band intensity can tell more about sample quality.
 
 ```{r example4}
 #PLOT dark mode-rnaspec2018.csv 'strict'
@@ -104,6 +104,7 @@ library(ggplot2)
 library(plotly)
 library(ggdark)
 library(ggthemes)
+library(htmlwidgets)
 #library(hrbrthemes)
 #old <- theme_set(theme_dark())
 rnaqcplot = ggplot(rna_data, aes(x=wave_length)) + 
@@ -117,17 +118,42 @@ rnaqcplot = ggplot(rna_data, aes(x=wave_length)) +
   geom_line(aes(y=zt10_3_2, color='zt10_3_2')) +
   dark_mode() +
   labs(title = 'Absorbance vs Wavelength', x = 'Wavelength', y='10 mm Absorbance', color='Circadian Times')
+saveWidget(ggplotly(rnaqcplot), file = "rnaplot.html", selfcontained = F, libdir = "lib")
 ggplotly(rnaqcplot)
+```
+
+```{r}
+#PLOT dark mode-rnaspec2018.csv 'strict'
+library(ggplot2)
+library(plotly)
+library(ggdark)
+library(ggthemes)
+library(htmlwidgets)
+#library(hrbrthemes)
+#old <- theme_set(theme_dark())
+plotly.nofun = function(){
+  naqcplot = ggplot(rna_data, aes(x=wave_length)) + 
+  geom_line(aes(y=zt2_3, color='zt2_3')) + 
+  geom_line(aes(y=zt14_2, color='zt14_2')) + 
+  geom_line(aes(y=zt14_2_2, color='zt14_2_2')) +
+  geom_line(aes(y=cal_rna_12ul, color='cal_rna_12ul')) +
+  geom_line(aes(y=zt6_3, color='zt6_3'))  + 
+  geom_line(aes(y=zt6_3_2, color='zt6_3_2')) + 
+  geom_line(aes(y=zt10_3, color='zt10_3')) + 
+  geom_line(aes(y=zt10_3_2, color='zt10_3_2')) +
+  dark_mode() +
+  labs(title = 'Absorbance vs Wavelength', x = 'Wavelength', y='10 mm Absorbance', color='Circadian Times')
+return(ggplotly(rnaqcplot))
+}
+plotly.nofun()
 ```
 
 ## Conclusion
 
-- Finally, a programmatic solution to the problem of RNA quality checking.
-- As always, credit to the Denovix team for making a machine that performs RNA QC checking. As always, these products come within their scope and programmers like me have to push this envelope in order to gain insight on these experiments hence tidyDenovix.
-- Thanks for the support in advance, on to the next one.
+-   Finally, a programmatic solution to the problem of RNA quality checking.
+-   As always, credit to the Denovix team for making a machine that performs RNA QC checking. As always, these products come within their scope and programmers like me have to push this envelope in order to gain insight on these experiments hence tidyDenovix.
+-   Thanks for the support in advance, on to the next one.
 
 ## References
-[@datatable]
-[@janitor]
-[@tidyverse]
 
+[@datatable] [@janitor] [@tidyverse]
