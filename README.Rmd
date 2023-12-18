@@ -1,9 +1,7 @@
 ---
 author: Tingwei Adeck
 date: '`r format(Sys.time(), "%B %d, %Y")`'
-output: 
-  html_document:
-    keep_md: true
+output: github_document
 bibliography: grateful-refs.bib
 ---
 
