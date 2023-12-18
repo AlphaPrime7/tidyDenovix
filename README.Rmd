@@ -122,7 +122,17 @@ rnaqcplot = ggplot(rna_data, aes(x=wave_length)) +
 saveWidget(ggplotly(rnaqcplot), file = "rnaplot.html", selfcontained = F, libdir = "lib")
 #frameWidget(ggplotly(rnaqcplot))
 ggplotly(rnaqcplot)
+```
 
+```{r include, echo=FALSE}
+htmltools::tags$iframe(
+  src=file.path(getwd(), "rnaplot.html"),
+  width="100%",
+  height="600",
+  scrolling = "no",
+  seamless = "seamless",
+  frameBorder = "0"
+)
 ```
 
 ## Conclusion

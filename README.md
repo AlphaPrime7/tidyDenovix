@@ -166,6 +166,8 @@ ggplotly(rnaqcplot)
 
 <img src="man/figures/README-example4-1.png" width="100%" />
 
+<iframe src="C:/Users/GrandProf/Downloads/Repos_4cleanup/Repositories_AP7/CodeBaseR/tidyDenovix/rnaplot.html" width="100%" height="600" scrolling="no" seamless="seamless" frameBorder="0"></iframe>
+
 ## Conclusion
 
 - Finally, a programmatic solution to the problem of RNA quality
