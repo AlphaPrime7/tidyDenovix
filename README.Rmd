@@ -120,8 +120,8 @@ rnaqcplot = ggplot(rna_data, aes(x=wave_length)) +
   dark_mode() +
   labs(title = 'Absorbance vs Wavelength', x = 'Wavelength', y='10 mm Absorbance', color='Circadian Times')
 saveWidget(ggplotly(rnaqcplot), file = "rnaplot.html", selfcontained = F, libdir = "lib")
-ggplotly(rnaqcplot)
 #frameWidget(ggplotly(rnaqcplot))
+ggplotly(rnaqcplot)
 
 ```
 

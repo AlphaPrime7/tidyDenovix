@@ -160,14 +160,11 @@ rnaqcplot = ggplot(rna_data, aes(x=wave_length)) +
 #> Inverted geom defaults of fill and color/colour.
 #> To change them back, use invert_geom_defaults().
 saveWidget(ggplotly(rnaqcplot), file = "rnaplot.html", selfcontained = F, libdir = "lib")
+#frameWidget(ggplotly(rnaqcplot))
 ggplotly(rnaqcplot)
 ```
 
 <img src="man/figures/README-example4-1.png" width="100%" />
-
-``` r
-#frameWidget(ggplotly(rnaqcplot))
-```
 
 ## Conclusion
 
