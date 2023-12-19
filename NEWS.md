@@ -1,3 +1,3 @@
-# tidyDenovix (development version)
+# tidyDenovix 1.0.0
 
 * Initial CRAN submission.
