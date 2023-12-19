@@ -20,5 +20,5 @@ fpath <- system.file("extdata", "rnaspec2018.csv", package = "tidyDenovix", must
 ext = file_ext(fpath)
 }
 \author{
-Tingwei Adeck
+Unknown (Adapted by Tingwei Adeck)
 }

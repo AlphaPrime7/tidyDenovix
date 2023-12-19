@@ -24,40 +24,76 @@
 #' fpath <- system.file("extdata", "rnaspec2018.csv", package = "tidyDenovix", mustWork = TRUE)
 #' rna_data = read_denovix_data(fpath, file_type = 'csv')
 
-read_denovix_data = function(dfile, file_type = c('csv','excel','txt')){
+read_denovix_data = function(dfile, file_type = c('csv','txt','excel') ){
 
   if(is.null(dfile)){
     stop('Enter the string for a file or path to the Denovix-DS11 file')
   }
 
-  if('csv' %in% file_type){
-    csvfile = read.csv(file = dfile, header = TRUE)
-    return(csvfile)
-
-  } else if('excel' %in% file_type){
-    xlfile = read_excel(dfile, col_names = TRUE)
-    return(xlfile)
-
-  } else if('txt' %in% file_type){
-    txtfile = read.table(file = dfile, header = TRUE, skip = 0)
-    return(txtfile)
-
-  } else {
-    if( is.null(file_type) || file_ext(dfile) == 'csv'){
+    if ('csv' %in% file_type ){
       csvfile = read.csv(file = dfile, header = TRUE)
       return(csvfile)
 
-    } else if(is.null(file_type) || file_ext(dfile) == 'xlsx'){
+    } else if('excel' %in% file_type ){
       xlfile = read_excel(dfile, col_names = TRUE)
       return(xlfile)
 
-    } else if(is.null(file_type) || file_ext(dfile) == 'txt'){
+    } else if('txt' %in% file_type ){
       txtfile = read.table(file = dfile, header = TRUE, skip = 0)
       return(txtfile)
 
     }
 
+}
+
+#' Title: Read Denovix files
+#'
+#' @author Tingwei Adeck
+#'
+#' @description
+#' A function read Denovix data files.
+#'
+#' @import readxl
+#' @importFrom utils read.csv
+#' @importFrom utils read.table
+#'
+#' @param dfile A Denovix file or path to the Denovix file.
+#'
+#' @return A data frame.
+#'
+#' @export
+#'
+#' @seealso [read_denovix_data()]
+#'
+#' @note
+#' Denovix files can be saved as csv, txt or even excel files.
+#' This function accounts for these file types.
+#'
+#' @examples
+#' fpath <- system.file("extdata", "rnaspec2018.csv", package = "tidyDenovix", mustWork = TRUE)
+#' rna_data = read_denovix(fpath)
+
+read_denovix = function(dfile){
+
+  nft = c(file_ext(dfile))
+
+  if(is.null(dfile)){
+    stop('Enter the string for a file or path to the Denovix-DS11 file')
   }
+
+    if ('csv' %in% nft ){
+      csvfile = read.csv(file = dfile, header = TRUE)
+      return(csvfile)
+
+    } else if('xlsx' %in% nft ){
+      xlfile = read_excel(dfile, col_names = TRUE)
+      return(xlfile)
+
+    } else if('txt' %in% nft ){
+      txtfile = read.table(file = dfile, header = TRUE, skip = 0)
+      return(txtfile)
+
+    }
 
 }
 
@@ -107,7 +143,11 @@ extract_col_names = function(xdf){
 
 extract_sample_names = function(dfile, file_type=NULL){
 
-  xdf = read_denovix_data(dfile, file_type)
+  if(!is.null(file_type)){
+    xdf = read_denovix_data(dfile, file_type)
+  } else {
+    xdf = read_denovix(dfile)
+  }
 
   xdf = janitor::clean_names(xdf)
   sample_names = xdf[, c("sample_name")]
@@ -278,7 +318,7 @@ min_max_norm <- function(x){
 
 #' Title: File Extension Finder
 #'
-#' @author Tingwei Adeck
+#' @author Unknown (Adapted by Tingwei Adeck)
 #'
 #' @param epath File path.
 #'
@@ -290,6 +330,13 @@ min_max_norm <- function(x){
 #' fpath <- system.file("extdata", "rnaspec2018.csv", package = "tidyDenovix", mustWork = TRUE)
 #' ext = file_ext(fpath)
 
-file_ext <- function(epath) {
-  sub(pattern = "^(.*\\.|[^.]+)(?=[^.]*)", replacement = "", epath, perl = TRUE)
+file_ext = function(epath) {
+  # or use .Platform$file.sep in stead of '/'
+  splitted    <- strsplit(x=epath, split='/')[[1]]
+  epath = splitted [length(splitted)]
+  ext = ''
+  splitted = strsplit(x=epath, split='\\.')[[1]]
+  l = length (splitted)
+  if (l > 1 && sum(splitted[1:(l-1)] != ''))  ext <-splitted [l]
+  return(as.character(ext))
 }

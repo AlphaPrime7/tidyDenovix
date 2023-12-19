@@ -24,15 +24,25 @@
 #' fpath <- system.file("extdata", "rnaspec2018.csv", package = "tidyDenovix", mustWork = TRUE)
 #' rna_data = tidyDenovix(fpath, file_type = 'csv', sample_type = 'RNA', check_level = 'lax')
 
-tidyDenovix = function(dfile, file_type= c('csv','excel','txt'), sample_type = c('RNA','DNA'), check_level = c('strict','lax'), qc_omit = NULL, normalized = c('yes','no'), fun = NA){
+tidyDenovix = function(dfile, file_type= NULL, sample_type = c('RNA','DNA'), check_level = c('strict','lax'), qc_omit = NULL, normalized = c('yes','no'), fun = NA){
 
 suppressWarnings({
 
   nofun <- is.na(fun)
 
   #import
-  xdf = read_denovix_data(dfile=dfile, file_type = file_type)
-  xdf_qc = read_denovix_data(dfile=dfile, file_type = file_type) #for QC
+  if(!is.null(file_type)){
+    xdf = read_denovix_data(dfile=dfile, file_type = file_type)
+    xdf_qc = read_denovix_data(dfile=dfile, file_type = file_type) #for QC
+
+  } else {
+    xdf = read_denovix(dfile=dfile)
+    xdf_qc = read_denovix(dfile=dfile) #for QC
+  }
+  #xdf = read_denovix(dfile=dfile)
+  #xdf_qc = read_denovix(dfile=dfile) #for QC
+
+
   cutoff = which( colnames(xdf)=="Exposure" )
   aftercut = as.numeric(cutoff + 1)
 

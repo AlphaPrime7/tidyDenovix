@@ -6,7 +6,7 @@
 \usage{
 tidyDenovix(
   dfile,
-  file_type = c("csv", "excel", "txt"),
+  file_type = NULL,
   sample_type = c("RNA", "DNA"),
   check_level = c("strict", "lax"),
   qc_omit = NULL,
