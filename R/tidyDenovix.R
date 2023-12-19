@@ -28,86 +28,60 @@ tidyDenovix = function(dfile, file_type= c('csv','excel','txt'), sample_type = c
 
 suppressWarnings({
 
-  #PRE-TRANSPOSE:workflow before transposing
-
   nofun <- is.na(fun)
 
-  #import ds11 file
-  xdf_qc = read_denovix_data(dfile=dfile, file_type = file_type)
+  #import
   xdf = read_denovix_data(dfile=dfile, file_type = file_type)
+  xdf_qc = read_denovix_data(dfile=dfile, file_type = file_type) #for QC
+  cutoff = which( colnames(xdf)=="Exposure" )
+  aftercut = as.numeric(cutoff + 1)
 
-  #get the qc df
-  qc_df = qc_attributes(dfile = dfile,xdf)
+  #qc_df
+  qc_df = qc_attributes(dfile = dfile,file_type, xdf)
+  row_cutoff = as.numeric(nrow(qc_df) + 1)
 
-  #get the lambda df
+  #wavelength
   lambda_df = extract_wavelength(xdf)
-  lambda_df_special = lambda_df[complete.cases(lambda_df), ]
 
-  #initial col_names for qc crosscheck
+  #col_names from source
   xdfc = janitor::clean_names(xdf)
-  esn = extract_sample_names(dfile=dfile)
-  sample_names = xdfc[, c("sample_name")]
-  sample_names_wl = append('wave_length', sample_names)
+  esn = extract_sample_names(dfile=dfile, file_type)
 
-  #TRANSPOSE the df-for workflow after transposing
-
+  #transpose
   xdf = data.table::transpose(l = xdf)
 
-  #sample_col_names<- vector("list")
-  sample_col_names<- c()
-  for(j in xdf[2,]){
-    if(is.na(j) != nofun){
-      sample_col_names <- c(sample_col_names,j)
-    }
-  }
-  sample_col_names = append('wave_length', sample_col_names)
+  #segment spectrophotometry data
+  xdf = xdf[c(aftercut:nrow(xdf) ),]
 
-  #column names quality control
-  qc_colnames = as.numeric((sample_names_wl == sample_col_names))
-
-  if (sum(qc_colnames) == length(sample_names_wl)){
-    col_names = sample_names
-  } else {
-    col_names = c(1:length(sample_names))
-  }
-
-  #wrangle df
-  xdf = xdf[21:nrow(xdf),]
-
-  #bind qc_df with wrangled df for QC
+  #bind qc_df
   xdf =rbind(qc_df, xdf)
   colnames(xdf) = esn
 
-  #QC now
+  #perform quality check
   xdf = lambda_check(xdf,sample_type = sample_type, check_level = check_level)
-  samp_names = lambda_check_source(xdf_qc,sample_type = sample_type, check_level = check_level)
-  samp_names_wl = append('wave_length', samp_names)
+  sample_names = lambda_check_source(xdf_qc,sample_type = sample_type, check_level = check_level)
+  col_names = append('wave_length', sample_names)
 
   if( is.null(qc_omit) || qc_omit == 'yes'){
 
     if(is.null(normalized) || 'no' %in% normalized){
-      xdf = xdf[6:nrow(xdf),]
+      xdf = xdf[row_cutoff:nrow(xdf),]
       xdf = cbind(lambda_df, xdf)
       xdf = xdf[complete.cases(xdf), ]
       xdf = as.data.frame(lapply(xdf[1:ncol(xdf)], as.numeric))
-      #xdf = xdf %>% drop_na()
-      #xdf = na.omit(xdf)
       rownames(xdf) = c(1:nrow(xdf))
-      colnames(xdf) = samp_names_wl
+      colnames(xdf) = col_names
 
       return(xdf)
 
     } else {
-      xdf = xdf[6:nrow(xdf),]
+      xdf = xdf[row_cutoff:nrow(xdf),]
       xdf = as.data.frame(lapply(xdf[1:ncol(xdf)], as.numeric))
-      xdf = xdf[complete.cases(xdf), ]
       xdf = as.data.frame(lapply(xdf[1:ncol(xdf)], min_max_norm))
-      xdf = cbind(lambda_df_special, xdf)
-      xdf = as.data.frame(lapply(xdf[1:ncol(xdf)], as.numeric))
-      #xdf = xdf %>% drop_na()
-      #xdf = na.omit(xdf)
+      xdf = cbind(lambda_df, xdf)
+      #xdf = as.data.frame(lapply(xdf[1:ncol(xdf)], as.numeric))
       #rownames(xdf) = c(1:nrow(xdf))
-      colnames(xdf) = samp_names_wl
+      colnames(xdf) = col_names
 
       return(xdf)
 
@@ -118,31 +92,23 @@ suppressWarnings({
     if(is.null(normalized) || 'no' %in% normalized){
       n <- 'qc_df'
       assign( paste0(n, '_check'), as.data.frame(xdf), envir = parent.frame())
-      xdf = xdf[6:nrow(xdf),]
+      xdf = xdf[row_cutoff:nrow(xdf),]
       xdf = as.data.frame(lapply(xdf[1:ncol(xdf)], as.numeric))
       xdf = cbind(lambda_df, xdf)
-      xdf = xdf[complete.cases(xdf), ]
-      xdf = as.data.frame(lapply(xdf[1:ncol(xdf)], as.numeric))
-      #xdf = xdf %>% drop_na()
-      #xdf = na.omit(xdf)
       rownames(xdf) = c(1:nrow(xdf))
-      colnames(xdf) = samp_names_wl
+      colnames(xdf) = col_names
 
       return(xdf)
 
     } else {
       n <- 'qc_df'
       assign( paste0(n, '_check'), as.data.frame(xdf), envir = parent.frame())
-      xdf = xdf[6:nrow(xdf),]
+      xdf = xdf[row_cutoff:nrow(xdf),]
       xdf = as.data.frame(lapply(xdf[1:ncol(xdf)], as.numeric))
-      xdf = xdf[complete.cases(xdf), ]
       xdf = as.data.frame(lapply(xdf[1:ncol(xdf)], min_max_norm))
-      xdf = cbind(lambda_df_special, xdf)
-      xdf = as.data.frame(lapply(xdf[1:ncol(xdf)], as.numeric))
-      #xdf = xdf %>% drop_na()
-      #xdf = na.omit(xdf)
+      xdf = cbind(lambda_df, xdf)
       #rownames(xdf) = c(1:nrow(xdf))
-      colnames(xdf) = samp_names_wl
+      colnames(xdf) = col_names
 
       return(xdf)
 

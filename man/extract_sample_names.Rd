@@ -4,10 +4,12 @@
 \alias{extract_sample_names}
 \title{Title: Extract sample names from the Denovix data frame}
 \usage{
-extract_sample_names(dfile)
+extract_sample_names(dfile, file_type = NULL)
 }
 \arguments{
 \item{dfile}{The denovix raw file for sample name(s) extraction.}
+
+\item{file_type}{The type of file.}
 }
 \value{
 A vector of sample names.
@@ -17,7 +19,7 @@ Title: Extract sample names from the Denovix data frame
 }
 \examples{
 fpath <- system.file("extdata", "rnaspec2018.csv", package = "tidyDenovix", mustWork = TRUE)
-esn = extract_sample_names(fpath)
+esn = extract_sample_names(fpath, file_type = 'csv')
 }
 \author{
 Tingwei Adeck

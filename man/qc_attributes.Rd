@@ -4,10 +4,12 @@
 \alias{qc_attributes}
 \title{Title: Quality Control data frame}
 \usage{
-qc_attributes(dfile, xdf)
+qc_attributes(dfile, file_type = NULL, xdf)
 }
 \arguments{
 \item{dfile}{The Denovix file path.}
+
+\item{file_type}{The type of file.}
 
 \item{xdf}{The Denovix data frame.}
 }
@@ -20,7 +22,7 @@ Title: Quality Control data frame
 \examples{
 fpath <- system.file("extdata", "rnaspec2018.csv", package = "tidyDenovix", mustWork = TRUE)
 rna_data = read_denovix_data(fpath, file_type = 'csv')
-qc_attributes = qc_attributes(fpath, rna_data)
+qc_attributes = qc_attributes(fpath, file_type = 'csv', rna_data)
 }
 \author{
 Tingwei Adeck

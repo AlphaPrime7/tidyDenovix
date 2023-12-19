@@ -29,37 +29,97 @@ lambda_check_source = function(odf, sample_type = c('RNA','DNA'), check_level = 
   if('RNA' %in% sample_type && 'lax' %in% check_level){
     odf = odf %>% dplyr::filter(x260_280_alert == 'Met criteria')
     sample_names = odf[, c("sample_name")]
-    sample_names = janitor::make_clean_names(sample_names)
 
+    if(is.atomic(sample_names) || is.character(sample_names) ){
+    sample_names = janitor::make_clean_names(sample_names)
     return(sample_names)
+
+  } else {
+    fixed_container = c()
+    sample_names = as.character(sample_names)
+    split_names = strsplit(sample_names,split = ',')
+    for(i in split_names){
+      fixed_container = c(fixed_container, i)
+      }
+    sample_names = janitor::make_clean_names(fixed_container)
+    return(sample_names)
+  }
 
   } else if('RNA' %in% sample_type && 'strict' %in% check_level){
     odf = odf %>% dplyr::filter(x260_230_alert == 'Met criteria')
     sample_names = odf[, c("sample_name")]
-    sample_names = janitor::make_clean_names(sample_names)
 
+    if(is.atomic(sample_names) || is.character(sample_names) ){
+    sample_names = janitor::make_clean_names(sample_names)
     return(sample_names)
+
+  } else {
+    fixed_container = c()
+    sample_names = as.character(sample_names)
+    split_names = strsplit(sample_names,split = ',')
+    for(i in split_names){
+      fixed_container = c(fixed_container, i)
+      }
+    sample_names = janitor::make_clean_names(fixed_container)
+    return(sample_names)
+  }
 
   } else if('DNA' %in% sample_type && 'lax' %in% check_level){
     odf = odf %>% dplyr::filter(x260_230_alert == 'Met criteria')
     sample_names = odf[, c("sample_name")]
-    sample_names = janitor::make_clean_names(sample_names)
 
+    if(is.atomic(sample_names) || is.character(sample_names) ){
+    sample_names = janitor::make_clean_names(sample_names)
     return(sample_names)
+
+  } else {
+    fixed_container = c()
+    sample_names = as.character(sample_names)
+    split_names = strsplit(sample_names,split = ',')
+    for(i in split_names){
+      fixed_container = c(fixed_container, i)
+      }
+    sample_names = janitor::make_clean_names(fixed_container)
+    return(sample_names)
+  }
 
   } else if('DNA' %in% sample_type && 'strict' %in% check_level){
     odf = odf %>% dplyr::filter(x260_280_alert == 'Met criteria')
     sample_names = odf[, c("sample_name")]
-    sample_names = janitor::make_clean_names(sample_names)
 
+    if(is.atomic(sample_names) || is.character(sample_names) ){
+    sample_names = janitor::make_clean_names(sample_names)
     return(sample_names)
+
+  } else {
+    fixed_container = c()
+    sample_names = as.character(sample_names)
+    split_names = strsplit(sample_names,split = ',')
+    for(i in split_names){
+      fixed_container = c(fixed_container, i)
+      }
+    sample_names = janitor::make_clean_names(fixed_container)
+    return(sample_names)
+  }
 
   } else {
     odf = odf %>% dplyr::filter(x260_280_alert == 'Met criteria')
     sample_names = odf[, c("sample_name")]
+    
+    if(is.atomic(sample_names) || is.character(sample_names) ){
     sample_names = janitor::make_clean_names(sample_names)
-
     return(sample_names)
+
+  } else {
+    fixed_container = c()
+    sample_names = as.character(sample_names)
+    split_names = strsplit(sample_names,split = ',')
+    for(i in split_names){
+      fixed_container = c(fixed_container, i)
+      }
+    sample_names = janitor::make_clean_names(fixed_container)
+    return(sample_names)
+  }
 
   }
 
