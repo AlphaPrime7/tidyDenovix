@@ -1,5 +1,5 @@
 Tingwei Adeck
-December 17, 2023
+December 19, 2023
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
@@ -124,8 +124,9 @@ rnaqcplot = ggplot(rna_data, aes(x=wave_length)) +
   geom_line(aes(y=zt10_3, color='zt10_3')) + 
   geom_line(aes(y=zt10_3_2, color='zt10_3_2')) +
   labs(title = 'Absorbance vs Wavelength', x = 'Wavelength', y='10 mm Absorbance', color='Circadian Times')
-saveWidget(ggplotly(rnaqcplot), file = "rnaplot.html", selfcontained = F, libdir = "lib")
-ggplotly(rnaqcplot)
+#saveWidget(ggplotly(rnaqcplot), file = "rnaplot.html", selfcontained = F, libdir = "lib")
+#ggplotly(rnaqcplot)
+rnaqcplot
 ```
 
 <img src="docs/example3-1.png" width="100%" />
@@ -159,9 +160,10 @@ rnaqcplot = ggplot(rna_data, aes(x=wave_length)) +
   labs(title = 'Absorbance vs Wavelength', x = 'Wavelength', y='10 mm Absorbance', color='Circadian Times')
 #> Inverted geom defaults of fill and color/colour.
 #> To change them back, use invert_geom_defaults().
-saveWidget(ggplotly(rnaqcplot), file = "rnaplot.html", selfcontained = F, libdir = "lib")
+#saveWidget(ggplotly(rnaqcplot), file = "rnaplot.html", selfcontained = F, libdir = "lib")
 #frameWidget(ggplotly(rnaqcplot))
-ggplotly(rnaqcplot)
+#ggplotly(rnaqcplot)
+rnaqcplot
 ```
 
 <img src="docs/example4-1.png" width="100%" />

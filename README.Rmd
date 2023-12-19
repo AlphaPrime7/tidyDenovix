@@ -93,8 +93,9 @@ rnaqcplot = ggplot(rna_data, aes(x=wave_length)) +
   geom_line(aes(y=zt10_3, color='zt10_3')) + 
   geom_line(aes(y=zt10_3_2, color='zt10_3_2')) +
   labs(title = 'Absorbance vs Wavelength', x = 'Wavelength', y='10 mm Absorbance', color='Circadian Times')
-saveWidget(ggplotly(rnaqcplot), file = "rnaplot.html", selfcontained = F, libdir = "lib")
-ggplotly(rnaqcplot)
+#saveWidget(ggplotly(rnaqcplot), file = "rnaplot.html", selfcontained = F, libdir = "lib")
+#ggplotly(rnaqcplot)
+rnaqcplot
 ```
 
 -   The image above clearly shows that no samples were trying to be mavericks and all the samples behave similarly. All the samples above are quality samples at least based on spectrophotometry and ONLY gel electrophoresis rRNA band intensity can tell more about sample quality.
@@ -120,9 +121,10 @@ rnaqcplot = ggplot(rna_data, aes(x=wave_length)) +
   geom_line(aes(y=zt10_3_2, color='zt10_3_2')) +
   dark_mode() +
   labs(title = 'Absorbance vs Wavelength', x = 'Wavelength', y='10 mm Absorbance', color='Circadian Times')
-saveWidget(ggplotly(rnaqcplot), file = "rnaplot.html", selfcontained = F, libdir = "lib")
+#saveWidget(ggplotly(rnaqcplot), file = "rnaplot.html", selfcontained = F, libdir = "lib")
 #frameWidget(ggplotly(rnaqcplot))
-ggplotly(rnaqcplot)
+#ggplotly(rnaqcplot)
+rnaqcplot
 ```
 
 ## Conclusion
