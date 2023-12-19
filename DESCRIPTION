@@ -4,7 +4,8 @@ Version: 0.0.0.9000
 Authors@R: 
     person("Tingwei", "Adeck", , "awesome.tingwei@outlook.com", role = c("aut", "cre"),
            comment = c(ORCID = "0009-0009-7450-8863"))
-Description: Cleans spectrophotometry data obtained from the Denovix instrument.
+Description: Cleans spectrophotometry data obtained from the Denovix instrument. The package
+also provides an option to normalize the data in order to compare the quality of the samples obtained.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
