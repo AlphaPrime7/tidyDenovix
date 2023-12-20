@@ -102,17 +102,6 @@ rna_data = tidyDenovix(fpath, sample_type = 'RNA',check_level = 'strict', qc_omi
 #PLOT-rnaspec2018.csv 'strict'
 library(ggplot2)
 library(plotly)
-#> 
-#> Attaching package: 'plotly'
-#> The following object is masked from 'package:ggplot2':
-#> 
-#>     last_plot
-#> The following object is masked from 'package:stats':
-#> 
-#>     filter
-#> The following object is masked from 'package:graphics':
-#> 
-#>     layout
 library(htmlwidgets)
 rnaqcplot = ggplot(rna_data, aes(x=wave_length)) + 
   geom_line(aes(y=zt2_3, color='zt2_3')) + 
@@ -129,7 +118,10 @@ rnaqcplot = ggplot(rna_data, aes(x=wave_length)) +
 rnaqcplot
 ```
 
-<img src="docs/example3-1.png" width="100%" />
+<figure>
+<img src="man/figures/example3-1.png" alt="Results Demo." />
+<figcaption aria-hidden="true">Results Demo.</figcaption>
+</figure>
 
 - The image above clearly shows that no samples were trying to be
   mavericks and all the samples behave similarly. All the samples above
@@ -158,15 +150,16 @@ rnaqcplot = ggplot(rna_data, aes(x=wave_length)) +
   geom_line(aes(y=zt10_3_2, color='zt10_3_2')) +
   dark_mode() +
   labs(title = 'Absorbance vs Wavelength', x = 'Wavelength', y='10 mm Absorbance', color='Circadian Times')
-#> Inverted geom defaults of fill and color/colour.
-#> To change them back, use invert_geom_defaults().
 #saveWidget(ggplotly(rnaqcplot), file = "rnaplot.html", selfcontained = F, libdir = "lib")
 #frameWidget(ggplotly(rnaqcplot))
 #ggplotly(rnaqcplot)
 rnaqcplot
 ```
 
-<img src="docs/example4-1.png" width="100%" />
+<figure>
+<img src="man/figures/example4-1.png" alt="Results Demo." />
+<figcaption aria-hidden="true">Results Demo.</figcaption>
+</figure>
 
 ## Conclusion
 

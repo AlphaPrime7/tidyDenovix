@@ -12,7 +12,7 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   #fig.path = "man/figures/README-",
-  fig.path = "docs/",
+  fig.path = "man/",
   out.width = "100%"
 )
 ```
@@ -73,7 +73,7 @@ rna_data = tidyDenovix(fpath, sample_type = 'RNA',check_level = 'strict', qc_omi
 
 -   The other aspect of QC will be ensuring that the kit used in RNA isolation is the right kit and actually yields RNA. This can only be done using gel electrophoresis and this is NOT the scope of this package OR is it even possible using this package. The user will need to physically run gels and confirm the presence of rRNA bands. In fact, it is resource smart to run gels first to confirm you have the right type of sample before determining if the samples meet the right quality needed for further probing.
 
-```{r example3}
+```{r example3, eval=FALSE}
 library(tidyDenovix)
 ## basic example code
 fpath <- system.file("extdata", "rnaspec2018.csv", package = "tidyDenovix", mustWork = TRUE)
@@ -98,9 +98,11 @@ rnaqcplot = ggplot(rna_data, aes(x=wave_length)) +
 rnaqcplot
 ```
 
+![Results Demo.](man/figures/example3-1.png)
+
 -   The image above clearly shows that no samples were trying to be mavericks and all the samples behave similarly. All the samples above are quality samples at least based on spectrophotometry and ONLY gel electrophoresis rRNA band intensity can tell more about sample quality.
 
-```{r example4}
+```{r example4, eval =FALSE}
 #PLOT dark mode-rnaspec2018.csv 'strict'
 library(ggplot2)
 library(plotly)
@@ -126,6 +128,8 @@ rnaqcplot = ggplot(rna_data, aes(x=wave_length)) +
 #ggplotly(rnaqcplot)
 rnaqcplot
 ```
+
+![Results Demo.](man/figures/example4-1.png)
 
 ## Conclusion
 

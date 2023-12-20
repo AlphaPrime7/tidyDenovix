@@ -25,6 +25,9 @@
     <loc>https://alphaprime7.github.io/tidyDenovix/news/index.html</loc>
   </url>
   <url>
+    <loc>https://alphaprime7.github.io/tidyDenovix/README.html</loc>
+  </url>
+  <url>
     <loc>https://alphaprime7.github.io/tidyDenovix/reference/extract_col_names.html</loc>
   </url>
   <url>
@@ -32,6 +35,9 @@
   </url>
   <url>
     <loc>https://alphaprime7.github.io/tidyDenovix/reference/extract_wavelength.html</loc>
+  </url>
+  <url>
+    <loc>https://alphaprime7.github.io/tidyDenovix/reference/file_ext.html</loc>
   </url>
   <url>
     <loc>https://alphaprime7.github.io/tidyDenovix/reference/index.html</loc>
@@ -43,10 +49,16 @@
     <loc>https://alphaprime7.github.io/tidyDenovix/reference/lambda_check_source.html</loc>
   </url>
   <url>
+    <loc>https://alphaprime7.github.io/tidyDenovix/reference/make_wavelength.html</loc>
+  </url>
+  <url>
     <loc>https://alphaprime7.github.io/tidyDenovix/reference/min_max_norm.html</loc>
   </url>
   <url>
     <loc>https://alphaprime7.github.io/tidyDenovix/reference/qc_attributes.html</loc>
+  </url>
+  <url>
+    <loc>https://alphaprime7.github.io/tidyDenovix/reference/read_denovix.html</loc>
   </url>
   <url>
     <loc>https://alphaprime7.github.io/tidyDenovix/reference/read_denovix_data.html</loc>
