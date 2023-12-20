@@ -1,6 +1,6 @@
 Package: tidyDenovix
 Title: Cleans Spectrophotometry Data Obtained From The Denovix DS-11 Instrument
-Version: 1.0.0
+Version: 2.0.0
 Authors@R: 
     person("Tingwei", "Adeck", , "awesome.tingwei@outlook.com", role = c("aut", "cre"),
            comment = c(ORCID = "0009-0009-7450-8863"))
