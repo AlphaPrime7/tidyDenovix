@@ -340,3 +340,25 @@ file_ext = function(epath) {
   if (l > 1 && sum(splitted[1:(l-1)] != ''))  ext <-splitted [l]
   return(as.character(ext))
 }
+
+#' Title: Enum function
+#'
+#' @author Tingwei Adeck
+#'
+#' @param elist A list with variable binding.
+#'
+#' @return The list supplied by the user.
+#'
+#' @export
+#'
+#' @examples
+#' cols = list('x260' = 1, 'x280' = 2, 'x230' = 3)
+#' qc = REnum(cols)
+#' a = (qc$x260)
+
+REnum <- function(elist) {
+  structure(
+    return(elist),
+    class= c("enum", "list")
+  )
+}

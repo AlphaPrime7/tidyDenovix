@@ -105,7 +105,7 @@ lambda_check_source = function(odf, sample_type = c('RNA','DNA'), check_level = 
   } else {
     odf = odf %>% dplyr::filter(x260_280_alert == 'Met criteria')
     sample_names = odf[, c("sample_name")]
-    
+
     if(is.atomic(sample_names) || is.character(sample_names) ){
     sample_names = janitor::make_clean_names(sample_names)
     return(sample_names)
@@ -150,10 +150,13 @@ lambda_check = function(qdf, sample_type = c('RNA','DNA'), check_level = c('stri
 
   pass_data = data.frame()
 
+  qc_cols = list('x260_280_alert' = 3, 'x260_230_alert' = 5)
+  qc_enum = REnum(qc_cols)
+
   if('RNA' %in% sample_type && 'lax' %in% check_level){
     for (i in 1:nrow(qdf)) {
       for (j in 1:ncol(qdf)) {
-        if( i== 3){
+        if( i== qc_enum$x260_280_alert ){
           if(qdf[i,j] == 'Met criteria'){
             pass_data = rbind(pass_data,qdf[,j])
           }
@@ -166,7 +169,7 @@ lambda_check = function(qdf, sample_type = c('RNA','DNA'), check_level = c('stri
   } else if('RNA' %in% sample_type && 'strict' %in% check_level){
     for (i in 1:nrow(qdf)) {
       for (j in 1:ncol(qdf)) {
-        if( i== 5){
+        if( i== qc_enum$x260_230_alert){
           if(qdf[i,j] == 'Met criteria'){
             pass_data = rbind(pass_data,qdf[,j])
           }
@@ -180,7 +183,7 @@ lambda_check = function(qdf, sample_type = c('RNA','DNA'), check_level = c('stri
   } else if('DNA' %in% sample_type && 'lax' %in% check_level){
     for (i in 1:nrow(qdf)) {
       for (j in 1:ncol(qdf)) {
-        if( i== 5){
+        if( i== qc_enum$x260_230_alert){
           if(qdf[i,j] == 'Met criteria'){
             pass_data = rbind(pass_data,qdf[,j])
           }
@@ -194,7 +197,7 @@ lambda_check = function(qdf, sample_type = c('RNA','DNA'), check_level = c('stri
   } else if('DNA' %in% sample_type && 'strict' %in% check_level){
     for (i in 1:nrow(qdf)) {
       for (j in 1:ncol(qdf)) {
-        if( i== 3){
+        if( i== qc_enum$x260_280_alert ){
           if(qdf[i,j] == 'Met criteria'){
             pass_data = rbind(pass_data,qdf[,j])
           }
@@ -207,7 +210,7 @@ lambda_check = function(qdf, sample_type = c('RNA','DNA'), check_level = c('stri
   } else {
     for (i in 1:nrow(qdf)) {
       for (j in 1:ncol(qdf)) {
-        if( i== 3){
+        if( i== qc_enum$x260_280_alert ){
           if(qdf[i,j] == 'Met criteria'){
             pass_data = rbind(pass_data,qdf[,j])
           }
