@@ -13,3 +13,4 @@
 ^lib$
 ^CRAN-SUBMISSION$
 ^cran-comments\.md$
+.log

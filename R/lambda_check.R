@@ -23,6 +23,8 @@
 
 lambda_check_source = function(odf, sample_type = c('RNA','DNA'), check_level = c('strict','lax')){
 
+  #x260_280_alert <- x260_230_alert <- NULL
+
   odf = odf %>%
     janitor::clean_names()
 
