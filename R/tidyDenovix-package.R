@@ -1,5 +1,5 @@
 #' @keywords internal
-#' @aliases testduplicate-package
+#' @aliases tidyDenovix-package
 
 "_PACKAGE"
 ## usethis namespace: start
