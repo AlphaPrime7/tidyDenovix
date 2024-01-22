@@ -18,9 +18,9 @@ Status](https://www.repostatus.org/badges/latest/wip.svg)](https://github.com/Al
 [![CRAN
 \[![license](https://img.shields.io/badge/MIT-License?label=license)\](https://mit-license.org/)
 status](https://www.r-pkg.org/badges/version/tidyDenovix)](https://CRAN.R-project.org/package=tidyDenovix)
-[![](http://cranlogs.r-pkg.org/badges/grand-total/tidyDenovix?color=yellow)](https://cran.r-project.org/package=tidyDenovix)
-[![](http://cranlogs.r-pkg.org/badges/last-month/tidyDenovix?color=green)](https://cran.r-project.org/package=tidyDenovix)
-[![](http://cranlogs.r-pkg.org/badges/last-week/tidyDenovix?color=yellow)](https://cran.r-project.org/package=tidyDenovix)
+[![](http://cranlogs.r-pkg.org/badges/grand-total/tidyDenovix?color=yellow)](https://www.cran-e.com/package/tidyDenovix)
+[![](http://cranlogs.r-pkg.org/badges/last-month/tidyDenovix?color=green)](https://www.cran-e.com/package/tidyDenovix)
+[![](http://cranlogs.r-pkg.org/badges/last-week/tidyDenovix?color=yellow)](https://www.cran-e.com/package/tidyDenovix)
 [![Awesome
 Badges](https://img.shields.io/badge/badges-awesome-green.svg)](https://github.com/Naereen/badges)
 
@@ -39,8 +39,13 @@ You can install the development version of tidyDenovix from
 [GitHub](https://github.com/AlphaPrime7/tidyDenovix) with:
 
 ``` r
-# install.packages("devtools")
 devtools::install_github("AlphaPrime7/tidyDenovix")
+```
+
+You can install from CRAN with:
+
+``` r
+install.packages("tidyDenovix")
 ```
 
 ## Raison-Etre
@@ -90,7 +95,7 @@ fpath <- system.file("extdata", "rnaspec2018.csv", package = "tidyDenovix", must
 rna_data = tidyDenovix(fpath, sample_type = 'RNA',check_level = 'strict', qc_omit = 'no', normalized = 'yes')
 ```
 
-## Example-Plotting Data for QC visualization
+## Example-Plotting Data for QC visualization (Spectral Profiling)
 
 - Visualization of normalized data for QC. Spectrophotometry can help in
   knowing if the sample in hand is RNA vs DNA but that is not the most
