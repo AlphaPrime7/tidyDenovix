@@ -1,15 +1,31 @@
 Tingwei Adeck
-December 19, 2023
+January 22, 2024
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 # tidyDenovix
 
+[![Demandez moi n’importe quoi
+!](https://img.shields.io/badge/Demandez%20moi-n'%20importe%20quoi-1abc9c.svg)](mailto:awesome.tingwei@outlook.com)
+[![Ask Me Anything
+!](https://img.shields.io/badge/Ask%20me-anything-1abc9c.svg)](mailto:awesome.tingwei@outlook.com)
+[![made-with-R](https://img.shields.io/badge/Made%20with-Rstudio-1f425f.svg)](https://www.rstudio.com/categories/rstudio-ide/)
 [![Project
 status](https://www.repostatus.org/badges/latest/concept.svg)](https://github.com/AlphaPrime7/tidyDenovix/graphs/commit-activity)
 [![Project
 Status](https://www.repostatus.org/badges/latest/wip.svg)](https://github.com/AlphaPrime7/tidyDenovix/graphs/commit-activity)
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/AlphaPrime7/tidyDenovix/graphs/commit-activity)
+[![CRAN
+\[![license](https://img.shields.io/badge/MIT-License?label=license)\](https://mit-license.org/)
+status](https://www.r-pkg.org/badges/version/tidyDenovix)](https://CRAN.R-project.org/package=tidyDenovix)
+[![](http://cranlogs.r-pkg.org/badges/grand-total/tidyDenovix?color=yellow)](https://cran.r-project.org/package=tidyDenovix)
+[![](http://cranlogs.r-pkg.org/badges/last-month/tidyDenovix?color=green)](https://cran.r-project.org/package=tidyDenovix)
+[![](http://cranlogs.r-pkg.org/badges/last-week/tidyDenovix?color=yellow)](https://cran.r-project.org/package=tidyDenovix)
+[![Awesome
+Badges](https://img.shields.io/badge/badges-awesome-green.svg)](https://github.com/Naereen/badges)
+
+<a href="https://www.buymeacoffee.com/tingweiadeck"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&amp;emoji=&amp;slug=tingweiadeck&amp;button_colour=FFDD00&amp;font_colour=000000&amp;font_family=Cookie&amp;outline_colour=000000&amp;coffee_colour=ffffff" width="100" height="50"/></a>
+<a href="https://www.buymeacoffee.com/tingweiadeck"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a Pizza&emoji=🍕&slug=tingweiadeck&button_colour=FFDD00&font_colour=000000&font_family=Cookie&outline_colour=000000&coffee_colour=ffffff" width="100" height="50" /></a>
 
 The goal of
 [`{tidyDenovix}`](https://github.com/AlphaPrime7/tidyDenovix) is to
