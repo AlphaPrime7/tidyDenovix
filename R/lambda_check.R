@@ -1,6 +1,8 @@
 #' Title: Wavelength quality control
 #'
 #' @author Tingwei Adeck
+#' 
+#' @family lambda
 #'
 #' @importFrom dplyr filter
 #'
@@ -130,6 +132,8 @@ lambda_check_source = function(odf, sample_type = c('RNA','DNA'), check_level = 
 #' Title: Wavelength quality control
 #'
 #' @author Tingwei Adeck
+#' 
+#' @family lambda
 #'
 #' @param qdf A data frame with quality attributes.
 #' @param sample_type The type of sample under investigation.

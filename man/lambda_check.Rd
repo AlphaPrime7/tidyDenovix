@@ -32,6 +32,11 @@ fpath <- system.file("extdata", "rnaspec2018.csv", package = "tidyDenovix", must
 rna_data = read_denovix_data(fpath, file_type = 'csv')
 qc_check = lambda_check(rna_data,sample_type='RNA',check_level='lax')
 }
+\seealso{
+Other lambda: 
+\code{\link{lambda_check_source}()}
+}
 \author{
 Tingwei Adeck
 }
+\concept{lambda}

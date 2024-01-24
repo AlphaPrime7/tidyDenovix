@@ -12,12 +12,9 @@ Cleans spectrophotometry data obtained from the Denovix instrument. The package 
 Useful links:
 \itemize{
   \item \url{https://github.com/AlphaPrime7/tidyDenovix}
+  \item \url{https://alphaprime7.github.io/tidyDenovix/}
   \item Report bugs at \url{https://github.com/AlphaPrime7/tidyDenovix/issues}
 }
-
-}
-\author{
-\strong{Maintainer}: Tingwei Adeck \email{awesome.tingwei@outlook.com} (\href{https://orcid.org/0009-0009-7450-8863}{ORCID})
 
 }
 \keyword{internal}
