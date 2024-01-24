@@ -1,4 +1,6 @@
-# On library attachment, print message to user.
+#' visit https://martinctc.github.io/blog/make-package-even-more-awesome/
+#' some packages for this are enrichR,CPAT etc.
+#' @import userhooks 
 .onAttach <- function(libname, pkgname) {
   msg <- paste0(
     "\n",
