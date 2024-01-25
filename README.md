@@ -16,7 +16,6 @@ status](https://www.repostatus.org/badges/latest/concept.svg)](https://github.co
 Status](https://www.repostatus.org/badges/latest/wip.svg)](https://github.com/AlphaPrime7/tidyDenovix/graphs/commit-activity)
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/AlphaPrime7/tidyDenovix/graphs/commit-activity)
 [![CRAN
-\[![license](https://img.shields.io/badge/MIT-License?label=license)\](https://mit-license.org/)
 status](https://www.r-pkg.org/badges/version/tidyDenovix)](https://CRAN.R-project.org/package=tidyDenovix)
 [![](http://cranlogs.r-pkg.org/badges/grand-total/tidyDenovix?color=yellow)](https://www.cran-e.com/package/tidyDenovix)
 [![](http://cranlogs.r-pkg.org/badges/last-month/tidyDenovix?color=green)](https://www.cran-e.com/package/tidyDenovix)
