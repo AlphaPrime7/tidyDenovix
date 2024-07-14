@@ -3,6 +3,9 @@ author: Tingwei Adeck
 date: '`r format(Sys.time(), "%B %d, %Y")`'
 output: github_document
 bibliography: grateful-refs.bib
+editor_options: 
+  markdown: 
+    wrap: 72
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -17,16 +20,19 @@ knitr::opts_chunk$set(
 )
 ```
 
-# tidyDenovix
+# tidyDenovix <img src="man/figures/logo.png" align="right" width="180"/>
 
 [![Demandez moi n'importe quoi
 !](https://img.shields.io/badge/Demandez%20moi-n'%20importe%20quoi-1abc9c.svg)](mailto:awesome.tingwei@outlook.com)
 [![Ask Me Anything
 !](https://img.shields.io/badge/Ask%20me-anything-1abc9c.svg)](mailto:awesome.tingwei@outlook.com)
 [![made-with-R](https://img.shields.io/badge/Made%20with-Rstudio-1f425f.svg)](https://www.rstudio.com/categories/rstudio-ide/)
-[![Project status](https://www.repostatus.org/badges/latest/concept.svg)](https://github.com/AlphaPrime7/tidyDenovix/graphs/commit-activity) [![Project Status](https://www.repostatus.org/badges/latest/wip.svg)](https://github.com/AlphaPrime7/tidyDenovix/graphs/commit-activity) [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/AlphaPrime7/tidyDenovix/graphs/commit-activity)
-[![CRAN
-[![license](https://img.shields.io/badge/MIT-License?label=license)](https://mit-license.org/)
+[![Project
+status](https://www.repostatus.org/badges/latest/concept.svg)](https://github.com/AlphaPrime7/tidyDenovix/graphs/commit-activity)
+[![Project
+Status](https://www.repostatus.org/badges/latest/wip.svg)](https://github.com/AlphaPrime7/tidyDenovix/graphs/commit-activity)
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/AlphaPrime7/tidyDenovix/graphs/commit-activity)
+[![CRAN [](https://mit-license.org/)
 status](https://www.r-pkg.org/badges/version/tidyDenovix)](https://CRAN.R-project.org/package=tidyDenovix)
 [![](http://cranlogs.r-pkg.org/badges/grand-total/tidyDenovix?color=yellow)](https://www.cran-e.com/package/tidyDenovix)
 [![](http://cranlogs.r-pkg.org/badges/last-month/tidyDenovix?color=green)](https://www.cran-e.com/package/tidyDenovix)
@@ -35,13 +41,18 @@ status](https://www.r-pkg.org/badges/version/tidyDenovix)](https://CRAN.R-projec
 Badges](https://img.shields.io/badge/badges-awesome-green.svg)](https://github.com/Naereen/badges)
 
 <a href="https://www.buymeacoffee.com/tingweiadeck"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&amp;emoji=&amp;slug=tingweiadeck&amp;button_colour=FFDD00&amp;font_colour=000000&amp;font_family=Cookie&amp;outline_colour=000000&amp;coffee_colour=ffffff" width="100" height="50"/></a>
-<a href="https://www.buymeacoffee.com/tingweiadeck"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a Pizza&emoji=🍕&slug=tingweiadeck&button_colour=FFDD00&font_colour=000000&font_family=Cookie&outline_colour=000000&coffee_colour=ffffff" width="100" height="50" /></a>
+<a href="https://www.buymeacoffee.com/tingweiadeck"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a Pizza&amp;emoji=🍕&amp;slug=tingweiadeck&amp;button_colour=FFDD00&amp;font_colour=000000&amp;font_family=Cookie&amp;outline_colour=000000&amp;coffee_colour=ffffff" width="100" height="50"/></a>
 
-The goal of [`{tidyDenovix}`](https://github.com/AlphaPrime7/tidyDenovix) is to clean data obtained from the Denovix spectrophotometry instrument. This package should clean data for RNA or DNA samples. At the moment users should use the 'lax' option for quality control.
+The goal of
+[`{tidyDenovix}`](https://github.com/AlphaPrime7/tidyDenovix) is to
+clean data obtained from the Denovix spectrophotometry instrument. This
+package should clean data for RNA or DNA samples. At the moment users
+should use the 'lax' option for quality control.
 
 ## Installation
 
-You can install the development version of tidyDenovix from [GitHub](https://github.com/AlphaPrime7/tidyDenovix) with:
+You can install the development version of tidyDenovix from
+[GitHub](https://github.com/AlphaPrime7/tidyDenovix) with:
 
 ``` r
 devtools::install_github("AlphaPrime7/tidyDenovix")
@@ -55,14 +66,27 @@ install.packages("tidyDenovix")
 
 ## Raison-Etre
 
--   Upon using the Denovix, the user can take screenshots of the screen if they intend to present this data at a conference or seminar. However, the screenshots taken are not very professional and will likely not look good at a conference.
--   As an undergraduate student I was faced with this issue and with poor programming skills, I had a hodgepodge of code lines that created an image but was not reproducible even by me because I had no idea what I was doing.
--   Fast forward today and this package will accomplish cleaning this type of data making it ready for plotting and presenting to faculty and peers.
--   Use the normalization parameter to find abnormal samples, meaning this package can be used to detect quality RNA isolates. This readme document will provide some code for plotting and enjoying visualizations while also accounting for quality of RNA isolates.
+-   Upon using the Denovix, the user can take screenshots of the screen
+    if they intend to present this data at a conference or seminar.
+    However, the screenshots taken are not very professional and will
+    likely not look good at a conference.
+-   As an undergraduate student I was faced with this issue and with
+    poor programming skills, I had a hodgepodge of code lines that
+    created an image but was not reproducible even by me because I had
+    no idea what I was doing.
+-   Fast forward today and this package will accomplish cleaning this
+    type of data making it ready for plotting and presenting to faculty
+    and peers.
+-   Use the normalization parameter to find abnormal samples, meaning
+    this package can be used to detect quality RNA isolates. This readme
+    document will provide some code for plotting and enjoying
+    visualizations while also accounting for quality of RNA isolates.
 
 ## Quality Control
 
--   As always quality is important so there are some quality parameters. Play around with the check_level parameter as 'lax' vs 'strict' to determine the level of quality needed for the final output.
+-   As always quality is important so there are some quality parameters.
+    Play around with the check_level parameter as 'lax' vs 'strict' to
+    determine the level of quality needed for the final output.
 
 ## Example-Base
 
@@ -77,7 +101,8 @@ rna_data = tidyDenovix(fpath, file_type = 'csv', sample_type = 'RNA', check_leve
 
 ## Example-Normalized
 
-This examples implements normalization for Quality Control of RNA isolates:
+This examples implements normalization for Quality Control of RNA
+isolates:
 
 ```{r example2}
 library(tidyDenovix)
@@ -88,11 +113,22 @@ rna_data = tidyDenovix(fpath, sample_type = 'RNA',check_level = 'strict', qc_omi
 
 ## Example-Plotting Data for QC visualization (Spectral Profiling)
 
--   Visualization of normalized data for QC. Spectrophotometry can help in knowing if the sample in hand is RNA vs DNA but that is not the most sound approach. More will be discussed below on this.
+-   Visualization of normalized data for QC. Spectrophotometry can help
+    in knowing if the sample in hand is RNA vs DNA but that is not the
+    most sound approach. More will be discussed below on this.
 
--   Simply look for samples that look different and "viola" those are your problems. These samples will not be primed candidates for cDNA synthesis and most likely not useful for qPCR.
+-   Simply look for samples that look different and "viola" those are
+    your problems. These samples will not be primed candidates for cDNA
+    synthesis and most likely not useful for qPCR.
 
--   The other aspect of QC will be ensuring that the kit used in RNA isolation is the right kit and actually yields RNA. This can only be done using gel electrophoresis and this is NOT the scope of this package OR is it even possible using this package. The user will need to physically run gels and confirm the presence of rRNA bands. In fact, it is resource smart to run gels first to confirm you have the right type of sample before determining if the samples meet the right quality needed for further probing.
+-   The other aspect of QC will be ensuring that the kit used in RNA
+    isolation is the right kit and actually yields RNA. This can only be
+    done using gel electrophoresis and this is NOT the scope of this
+    package OR is it even possible using this package. The user will
+    need to physically run gels and confirm the presence of rRNA bands.
+    In fact, it is resource smart to run gels first to confirm you have
+    the right type of sample before determining if the samples meet the
+    right quality needed for further probing.
 
 ```{r example3, eval=FALSE}
 library(tidyDenovix)
@@ -121,7 +157,11 @@ rnaqcplot
 
 ![Results Demo.](man/figures/example3-1.png)
 
--   The image above clearly shows that no samples were trying to be mavericks and all the samples behave similarly. All the samples above are quality samples at least based on spectrophotometry and ONLY gel electrophoresis rRNA band intensity can tell more about sample quality.
+-   The image above clearly shows that no samples were trying to be
+    mavericks and all the samples behave similarly. All the samples
+    above are quality samples at least based on spectrophotometry and
+    ONLY gel electrophoresis rRNA band intensity can tell more about
+    sample quality.
 
 ```{r example4, eval =FALSE}
 #PLOT dark mode-rnaspec2018.csv 'strict'
@@ -154,8 +194,12 @@ rnaqcplot
 
 ## Conclusion
 
--   Finally, a programmatic solution to the problem of RNA quality checking.
--   As always, credit to the Denovix team for making a machine that performs RNA QC checking. As always, these products come within their scope and programmers like me have to push this envelope in order to gain insight on these experiments hence tidyDenovix.
+-   Finally, a programmatic solution to the problem of RNA quality
+    checking.
+-   As always, credit to the Denovix team for making a machine that
+    performs RNA QC checking. As always, these products come within
+    their scope and programmers like me have to push this envelope in
+    order to gain insight on these experiments hence tidyDenovix.
 -   Thanks for the support in advance, on to the next one.
 
 ## References

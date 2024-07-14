@@ -1,9 +1,9 @@
 Tingwei Adeck
-January 22, 2024
+July 14, 2024
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# tidyDenovix
+# tidyDenovix <img src="man/figures/logo.png" align="right" width="180"/>
 
 [![Demandez moi n’importe quoi
 !](https://img.shields.io/badge/Demandez%20moi-n'%20importe%20quoi-1abc9c.svg)](mailto:awesome.tingwei@outlook.com)
@@ -15,7 +15,7 @@ status](https://www.repostatus.org/badges/latest/concept.svg)](https://github.co
 [![Project
 Status](https://www.repostatus.org/badges/latest/wip.svg)](https://github.com/AlphaPrime7/tidyDenovix/graphs/commit-activity)
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/AlphaPrime7/tidyDenovix/graphs/commit-activity)
-[![CRAN
+[![CRAN \[\](https://mit-license.org/)
 status](https://www.r-pkg.org/badges/version/tidyDenovix)](https://CRAN.R-project.org/package=tidyDenovix)
 [![](http://cranlogs.r-pkg.org/badges/grand-total/tidyDenovix?color=yellow)](https://www.cran-e.com/package/tidyDenovix)
 [![](http://cranlogs.r-pkg.org/badges/last-month/tidyDenovix?color=green)](https://www.cran-e.com/package/tidyDenovix)
@@ -24,7 +24,7 @@ status](https://www.r-pkg.org/badges/version/tidyDenovix)](https://CRAN.R-projec
 Badges](https://img.shields.io/badge/badges-awesome-green.svg)](https://github.com/Naereen/badges)
 
 <a href="https://www.buymeacoffee.com/tingweiadeck"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&amp;emoji=&amp;slug=tingweiadeck&amp;button_colour=FFDD00&amp;font_colour=000000&amp;font_family=Cookie&amp;outline_colour=000000&amp;coffee_colour=ffffff" width="100" height="50"/></a>
-<a href="https://www.buymeacoffee.com/tingweiadeck"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a Pizza&emoji=🍕&slug=tingweiadeck&button_colour=FFDD00&font_colour=000000&font_family=Cookie&outline_colour=000000&coffee_colour=ffffff" width="100" height="50" /></a>
+<a href="https://www.buymeacoffee.com/tingweiadeck"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a Pizza&amp;emoji=🍕&amp;slug=tingweiadeck&amp;button_colour=FFDD00&amp;font_colour=000000&amp;font_family=Cookie&amp;outline_colour=000000&amp;coffee_colour=ffffff" width="100" height="50"/></a>
 
 The goal of
 [`{tidyDenovix}`](https://github.com/AlphaPrime7/tidyDenovix) is to
@@ -77,6 +77,16 @@ This is a basic example which shows you how to solve a common problem:
 
 ``` r
 library(tidyDenovix)
+#> 
+#> == Welcome to tidyDenovix ===========================================================================
+#> If you find this package useful, please leave a star: 
+#>    https://github.com/AlphaPrime7/tidyDenovix'
+#> 
+#> If you encounter a bug or want to request an enhancement please file an issue at:
+#>    https://github.com/AlphaPrime7/tidyDenovix/issues
+#> 
+#> 
+#> Thank you for using tidyDenovix!
 ## basic example code
 fpath <- system.file("extdata", "rnaspec2018.csv", package = "tidyDenovix", mustWork = TRUE)
 rna_data = tidyDenovix(fpath, file_type = 'csv', sample_type = 'RNA', check_level = 'lax')
@@ -195,7 +205,8 @@ rnaqcplot
 
 (Dowle and Srinivasan 2023) (Firke 2023) (Wickham et al. 2019)
 
-<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="refs" class="references csl-bib-body hanging-indent"
+entry-spacing="0">
 
 <div id="ref-datatable" class="csl-entry">
 

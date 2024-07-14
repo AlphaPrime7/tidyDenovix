@@ -3,7 +3,6 @@
 \docType{package}
 \name{tidyDenovix-package}
 \alias{tidyDenovix-package}
-\alias{_PACKAGE}
 \title{tidyDenovix: Cleans Spectrophotometry Data Obtained from the Denovix DS-11 Instrument}
 \description{
 Cleans spectrophotometry data obtained from the Denovix instrument. The package also provides an option to normalize the data in order to compare the quality of the samples obtained.
@@ -15,6 +14,10 @@ Useful links:
   \item \url{https://alphaprime7.github.io/tidyDenovix/}
   \item Report bugs at \url{https://github.com/AlphaPrime7/tidyDenovix/issues}
 }
+
+}
+\author{
+\strong{Maintainer}: Tingwei Adeck \email{awesome.tingwei@outlook.com} (\href{https://orcid.org/0009-0009-7450-8863}{ORCID})
 
 }
 \keyword{internal}
