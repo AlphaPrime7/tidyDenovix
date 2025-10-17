@@ -119,7 +119,11 @@ rna_data = tidyDenovix(fpath,
 ``` r
 ## basic example code
 fpath <- system.file("extdata", "rnaspec2018.csv", package = "tidyDenovix", mustWork = TRUE)
-rna_data = tidyDenovix(fpath, sample_type = 'RNA',check_level = 'strict', qc_omit = 'no', normalized = 'yes')
+rna_data = tidyDenovix(fpath, 
+                       sample_type = 'RNA',
+                       check_level = 'strict', 
+                       qc_omit = 'no', 
+                       normalized = 'yes')
 
 #PLOT-rnaspec2018.csv 'strict'
 library(ggplot2)
