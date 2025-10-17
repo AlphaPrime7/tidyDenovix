@@ -5,6 +5,8 @@
 \alias{tidyDenovix-package}
 \title{tidyDenovix: Cleans Spectrophotometry Data Obtained from the Denovix DS-11 Instrument}
 \description{
+\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
+
 Cleans spectrophotometry data obtained from the Denovix instrument. The package also provides an option to normalize the data in order to compare the quality of the samples obtained.
 }
 \seealso{
