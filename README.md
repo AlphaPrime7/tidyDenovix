@@ -76,7 +76,10 @@ This is a basic example which shows you how to solve a common problem:
 ``` r
 ## basic example code
 fpath <- system.file("extdata", "rnaspec2018.csv", package = "tidyDenovix", mustWork = TRUE)
-rna_data = tidyDenovix(fpath, file_type = 'csv', sample_type = 'RNA', check_level = 'lax')
+rna_data = tidyDenovix(fpath, 
+                       file_type = 'csv', 
+                       sample_type = 'RNA', 
+                       check_level = 'lax')
 ```
 
 ## Example-Normalized
@@ -87,7 +90,11 @@ isolates:
 ``` r
 ## basic example code
 fpath <- system.file("extdata", "rnaspec2018.csv", package = "tidyDenovix", mustWork = TRUE)
-rna_data = tidyDenovix(fpath, sample_type = 'RNA',check_level = 'strict', qc_omit = 'no', normalized = 'yes')
+rna_data = tidyDenovix(fpath, 
+                       sample_type = 'RNA',
+                       check_level = 'strict', 
+                       qc_omit = 'no', 
+                       normalized = 'yes')
 ```
 
 ## Example-Plotting Data for QC visualization (Spectral Profiling)
