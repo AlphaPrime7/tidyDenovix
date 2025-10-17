@@ -10,6 +10,11 @@ editor_options:
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
+```{r include=FALSE, message=FALSE, warning=FALSE}
+library(tidyDenovix)
+```
+
+
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
@@ -85,7 +90,6 @@ install.packages("tidyDenovix")
 This is a basic example which shows you how to solve a common problem:
 
 ```{r example}
-library(tidyDenovix)
 ## basic example code
 fpath <- system.file("extdata", "rnaspec2018.csv", package = "tidyDenovix", mustWork = TRUE)
 rna_data = tidyDenovix(fpath, file_type = 'csv', sample_type = 'RNA', check_level = 'lax')

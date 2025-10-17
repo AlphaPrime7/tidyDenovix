@@ -1,5 +1,5 @@
 Tingwei Adeck
-July 14, 2024
+October 17, 2025
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
@@ -74,17 +74,6 @@ install.packages("tidyDenovix")
 This is a basic example which shows you how to solve a common problem:
 
 ``` r
-library(tidyDenovix)
-#> 
-#> == Welcome to tidyDenovix ===========================================================================
-#> If you find this package useful, please leave a star: 
-#>    https://github.com/AlphaPrime7/tidyDenovix'
-#> 
-#> If you encounter a bug or want to request an enhancement please file an issue at:
-#>    https://github.com/AlphaPrime7/tidyDenovix/issues
-#> 
-#> 
-#> Thank you for using tidyDenovix!
 ## basic example code
 fpath <- system.file("extdata", "rnaspec2018.csv", package = "tidyDenovix", mustWork = TRUE)
 rna_data = tidyDenovix(fpath, file_type = 'csv', sample_type = 'RNA', check_level = 'lax')
